@@ -4,7 +4,7 @@ name: Playwright Tests
 on:
   push:
     branches:
-      - main  # Change to the default branch of your repository 
+      - main  # Change to the default branch of your repository
   pull_request:
     branches:
       - main
