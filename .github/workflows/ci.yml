@@ -1,4 +1,4 @@
-name: CI Workflow
+name: CI
 
 on:
   push:
@@ -11,22 +11,26 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     steps:
-      # Checkout the repository
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Set up Node.js (specifically version 20)
-      - name: Set up Node.js
+      - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Specify Node.js version 20
+          node-version: '20'
 
-      # Install dependencies
       - name: Install dependencies
         run: npm ci
+        working-directory: qa_wolf_take_home  # Change directory to qa_take_home
 
-      # Run your tests
-      - name: Run tests
-        run: npm test
+      - name: Run Playwright tests
+        run: npx playwright test
+        working-directory: qa_take_home  # Change directory to qa_take_home
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report
+          path: qa_wolf_take_home/playwright-report  # Adjust the path to your Playwright report if necessary
