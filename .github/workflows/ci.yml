@@ -1,10 +1,9 @@
 name: Playwright Tests
 
-# This workflow will run whenever code is pushed to the repository or a pull request is opened.
 on:
   push:
     branches:
-      - main  # Change to the default branch of your repository
+      - main
   pull_request:
     branches:
       - main
@@ -13,40 +12,24 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        # Define the Node.js versions and Playwright browsers you want to test against
-        node-version: [16.x]
-        browser: [chromium, firefox, webkit]
-
     steps:
-      # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js environment
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '16'
 
-      # Step 3: Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # Step 4: Install Playwright dependencies
-      - name: Install Playwright
-        run: npx playwright install --with-deps
-
-      # Step 5: Run Playwright tests for the specified browser
       - name: Run Playwright tests
-        run: |
-          npx playwright test --browser ${{ matrix.browser }}
+        run: npx playwright test
 
-      # Step 6: Upload Playwright report
-      - name: Upload Playwright Test Report
-        if: always()
-        uses: actions/upload-artifact@v2
+      # Upload Playwright test results
+      - name: Upload Playwright test results
+        uses: actions/upload-artifact@v3  # Updated to v3
         with:
-          name: playwright-report
+          name: playwright-results
           path: playwright-report/
