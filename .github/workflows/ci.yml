@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: CI Workflow
 
 on:
   push:
@@ -9,27 +9,24 @@ on:
       - main
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Set up Node.js (specifically version 20)
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'  # Specify Node.js version 20
 
+      # Install dependencies
       - name: Install dependencies
         run: npm ci
 
-      - name: Run Playwright tests
-        run: npx playwright test
-
-      # Upload Playwright test results
-      - name: Upload Playwright test results
-        uses: actions/upload-artifact@v3  # Updated to v3
-        with:
-          name: playwright-results
-          path: playwright-report/
+      # Run your tests
+      - name: Run tests
+        run: npm test
