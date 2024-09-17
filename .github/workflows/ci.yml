@@ -27,7 +27,7 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test
-        working-directory: qa_take_home  # Change directory to qa_take_home
+        working-directory: qa_wolf_take_home  # Change directory to qa_take_home
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v3
