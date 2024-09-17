@@ -1,5 +1,6 @@
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+import { resolve } from 'path';  // Import path resolve
 
 /**
  * Read environment variables from file.
@@ -32,7 +33,7 @@ export default defineConfig({
     headless: true,   // Run in headless mode by default
     viewport: { width: 1280, height: 720 }, // Set default viewport size
   },
-  globalTeardown: './globalTeardown.js',
+  globalTeardown: resolve('./globalTeardown.js'),
 
   /* Configure projects for major browsers */
   projects: [
