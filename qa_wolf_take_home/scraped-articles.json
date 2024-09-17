@@ -1,702 +1,702 @@
 [
   {
-    "id": "41569370",
+    "id": "41571713",
     "rank": "1.",
-    "title": "Self healing code with clojure.spec (2016)",
+    "title": "Show HN: Open-source deployment tool for AWS Lambda",
     "timestamp": "0 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569313",
+    "id": "41571706",
     "rank": "2.",
-    "title": "Thousands hurt by exploding pagers across Lebanon",
+    "title": "TexTube: Chat with any YouTube video transcript in ChatGPT fast",
+    "timestamp": "1 minute ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571696",
+    "rank": "3.",
+    "title": "Mandelbrot calculation speed on a variety of Python accelerators",
+    "timestamp": "2 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571694",
+    "rank": "4.",
+    "title": "Post-Mortem of Our Longest Downtime",
+    "timestamp": "2 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571691",
+    "rank": "5.",
+    "title": "The Accelerationist Playbook",
+    "timestamp": "2 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571688",
+    "rank": "6.",
+    "title": "Show HN: I open-sourced my HN comment/reply alerts service",
     "timestamp": "3 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569296",
-    "rank": "3.",
-    "title": "Plants 'Talk' to One Another in Languages We Might Soon Translate",
-    "timestamp": "4 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569292",
-    "rank": "4.",
-    "title": "Cold war spy satellites and AI detect ancient underground aqueducts",
-    "timestamp": "5 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569289",
-    "rank": "5.",
-    "title": "How climate change is rewriting the rules of extreme storms",
-    "timestamp": "5 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569288",
-    "rank": "6.",
-    "title": "Why we'll never shoot Earth's garbage into the Sun",
-    "timestamp": "5 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569284",
+    "id": "41571666",
     "rank": "7.",
-    "title": "Gibbons move with rhythm and intention. Dare we say style?",
+    "title": "New Spectacles and Snap OS: The Next Frontier of AR Glasses",
     "timestamp": "6 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569256",
+    "id": "41571651",
     "rank": "8.",
-    "title": "Show HN: Podsi – AI Powered Search or Generate Podcasts on Any Topic",
-    "timestamp": "8 minutes ago",
+    "title": "TIL: How to Get Shell Completions in Nix Shell with Direnv",
+    "timestamp": "7 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569247",
+    "id": "41571620",
     "rank": "9.",
-    "title": "Show HN: Optimize SQL Queries for Free",
-    "timestamp": "9 minutes ago",
+    "title": "Today AWS Transferred OpenSearch to Linux Foundation",
+    "timestamp": "10 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569229",
+    "id": "41571606",
     "rank": "10.",
-    "title": "Power Tools for the Notion API",
+    "title": "Swift 6",
     "timestamp": "11 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569208",
+    "id": "41571589",
     "rank": "11.",
-    "title": "Sonoma vs. Sequoia",
+    "title": "Rhysida ransomware gang ships off Port of Seattle data for $6M",
     "timestamp": "13 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569207",
+    "id": "41571583",
     "rank": "12.",
-    "title": "Visualizing Ship Movements with AIs Data",
-    "timestamp": "13 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569197",
-    "rank": "13.",
-    "title": "Recent study reveals reduced math performance of adults with dyspraxia",
+    "title": "Knocking out one key gene leads to autistic traits",
     "timestamp": "14 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569189",
+    "id": "41571582",
+    "rank": "13.",
+    "title": "Oracle urged again to give up JavaScript trademark",
+    "timestamp": "14 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571573",
     "rank": "14.",
-    "title": "Some remarks on the mathematical structure of the multiverse",
+    "title": "Hezbollah's Deadly Exploding Pagers – Experts suggest supply chain compromise",
+    "timestamp": "15 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571566",
+    "rank": "15.",
+    "title": "Scammers pilfered $5.6B in cryptocurrency in 2023",
+    "timestamp": "15 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571564",
+    "rank": "16.",
+    "title": "RansomHub Releases 487GB of Kawasaki Motors Europe Data",
+    "timestamp": "15 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571562",
+    "rank": "17.",
+    "title": "How to Install and Run Auraflow Image Generator Locally",
     "timestamp": "16 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569175",
-    "rank": "15.",
-    "title": "We are self-hosting our GPUs",
-    "timestamp": "17 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569174",
-    "rank": "16.",
-    "title": "Technical Interviews – Part 1",
-    "timestamp": "17 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569172",
-    "rank": "17.",
-    "title": "A Deluge for the Sahara",
-    "timestamp": "17 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569169",
+    "id": "41571552",
     "rank": "18.",
-    "title": "No Ghost Policy",
+    "title": "Startups should host LLMs on their own GPUs",
     "timestamp": "17 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569151",
+    "id": "41571481",
     "rank": "19.",
-    "title": "Request to Upgrade Fedora KDE Desktop Spin to Edition Status",
-    "timestamp": "19 minutes ago",
+    "title": "Linux commands you should never run (and why)",
+    "timestamp": "24 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569141",
+    "id": "41571477",
     "rank": "20.",
-    "title": "Ask HN: How can I improve UI dev skills? Looking for real-world examples",
-    "timestamp": "19 minutes ago",
+    "title": "A Tesla Semi has already traveled 250k miles in 1.5 years",
+    "timestamp": "24 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569139",
+    "id": "41571475",
     "rank": "21.",
-    "title": "Generative image AI systems infringe by default",
-    "timestamp": "20 minutes ago",
+    "title": "A key NASA commercial partner faces financial challenges",
+    "timestamp": "24 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569103",
+    "id": "41571458",
     "rank": "22.",
-    "title": "Are tiny black holes zipping through the solar system?",
-    "timestamp": "23 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569084",
-    "rank": "23.",
-    "title": "In the land of LLMs, can we do better mock data generation?",
+    "title": "There are now more electric cars than gas cars on Norway's roads",
     "timestamp": "25 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569065",
+    "id": "41571454",
+    "rank": "23.",
+    "title": "Krazam: High Agency Individual Contributor [video]",
+    "timestamp": "25 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571447",
     "rank": "24.",
-    "title": "The Cloud Hasn't Been Won",
-    "timestamp": "27 minutes ago",
+    "title": "Google gets it's own founding date wrong",
+    "timestamp": "25 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569056",
+    "id": "41571420",
     "rank": "25.",
-    "title": "A new path for Kyber on the web for Chrome",
+    "title": "Something from Nothing – A Painless Approach to Understanding AI",
     "timestamp": "28 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569053",
+    "id": "41571418",
     "rank": "26.",
-    "title": "Kubecost's Acquisition by IBM",
+    "title": "Confused travelers arrive at wrong airport after Oakland renaming, SF says",
     "timestamp": "28 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569038",
+    "id": "41571380",
     "rank": "27.",
-    "title": "AI Meets the Classroom: When Does ChatGPT Harm Learning?",
-    "timestamp": "29 minutes ago",
+    "title": "See Your Folks",
+    "timestamp": "31 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569029",
+    "id": "41571362",
     "rank": "28.",
-    "title": "Pyngme – Alerts for the Web in Natural Language",
-    "timestamp": "30 minutes ago",
+    "title": "Swift 6",
+    "timestamp": "32 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41569025",
+    "id": "41571340",
     "rank": "29.",
-    "title": "In US vs. Google, YouTube CEO Defends the DoubleClick and Admeld Acquisitions",
-    "timestamp": "31 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569023",
-    "rank": "30.",
-    "title": "Awful truths about book publishing (2023)",
-    "timestamp": "31 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569019",
-    "rank": "31.",
-    "title": "The Epic Games Store Arrives on iPad in the EU",
-    "timestamp": "32 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41569005",
-    "rank": "32.",
-    "title": "Do you see blue or green? This viral test plays with color perception",
-    "timestamp": "32 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568989",
-    "rank": "33.",
-    "title": "When Infrastructure Gets Hacked",
+    "title": "Snapchat announces new generation of AR glasses",
     "timestamp": "33 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568983",
-    "rank": "34.",
-    "title": "The devil's guide to doing your PhD",
-    "timestamp": "34 minutes ago",
+    "id": "41571318",
+    "rank": "30.",
+    "title": "Breaking ReCAPTCHAv2",
+    "timestamp": "35 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568957",
-    "rank": "35.",
-    "title": "Meta bans RT days after U.S. accused Russian outlet of disinformation",
+    "id": "41571305",
+    "rank": "31.",
+    "title": "Exploding pagers belonging to Hezbollah kill 8 and injure 2,700 in Lebanon",
     "timestamp": "36 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568941",
-    "rank": "36.",
-    "title": "Show HN: Small Hours, An AI-powered observability and root cause analysis",
+    "id": "41571303",
+    "rank": "32.",
+    "title": "Cloudflare Network Issues Affecting Service Reachability",
+    "timestamp": "36 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571293",
+    "rank": "33.",
+    "title": "Show HN: I Built an App to Tell You How Good (Or Bad) Your Driving Is",
     "timestamp": "37 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568924",
+    "id": "41571264",
+    "rank": "34.",
+    "title": "Show HN: shadcn-chat-cli – customizable chat react components",
+    "timestamp": "40 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571261",
+    "rank": "35.",
+    "title": "Founder mode is wishful thinking",
+    "timestamp": "40 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571184",
+    "rank": "36.",
+    "title": "Deepfake Videos Have Gone Mainstream – Now What?",
+    "timestamp": "46 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571178",
     "rank": "37.",
-    "title": "Show HN: Build event-driven workflows with Python async functions",
-    "timestamp": "38 minutes ago",
+    "title": "Show HN: Real-Time Interactive Fluid Simulation on Vision Pro",
+    "timestamp": "46 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568922",
+    "id": "41571157",
     "rank": "38.",
-    "title": "Grammarly's Translation Feature",
-    "timestamp": "39 minutes ago",
+    "title": "Leaked internal documents from a Kremlin-controlled propaganda center",
+    "timestamp": "48 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568905",
+    "id": "41571155",
     "rank": "39.",
-    "title": "New results from the CMS experiment put W boson mass mystery to rest",
-    "timestamp": "40 minutes ago",
+    "title": "Spamming the regulator: a new lobbying strategy in EU competition procedures",
+    "timestamp": "49 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568904",
+    "id": "41571133",
     "rank": "40.",
-    "title": "Haitians in Springfield Ohio",
-    "timestamp": "40 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568895",
-    "rank": "41.",
-    "title": "Bring Back Meeting in Real Life",
-    "timestamp": "40 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568883",
-    "rank": "42.",
-    "title": "Last messages revealed from Titan submersible implosion",
-    "timestamp": "42 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568880",
-    "rank": "43.",
-    "title": "Record US household wealth may increase chance of soft landing",
-    "timestamp": "42 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568877",
-    "rank": "44.",
-    "title": "Ask HN: Hire freelancers, or a dev shop, as a solo founder?",
-    "timestamp": "42 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568870",
-    "rank": "45.",
-    "title": "Sorry Ted Chiang, humans aren't original either",
-    "timestamp": "42 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568861",
-    "rank": "46.",
-    "title": "One Million Are Now Dead or Injured in the Russia-Ukraine War",
-    "timestamp": "43 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568845",
-    "rank": "47.",
-    "title": "Confessions of a Former Carnivore",
-    "timestamp": "44 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568835",
-    "rank": "48.",
-    "title": "Glitch-grid: A toy database for demoing distributed systems testing",
-    "timestamp": "45 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568824",
-    "rank": "49.",
-    "title": "Miley Cyrus Sued over 'Flowers,' Accused of Copying Bruno Mars Song",
-    "timestamp": "45 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568823",
-    "rank": "50.",
-    "title": "Cells Across the Tree of Life Exchange 'Text Messages' Using RNA",
-    "timestamp": "45 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568807",
-    "rank": "51.",
-    "title": "D-Link Patches Critical Router Vulnerabilities",
-    "timestamp": "46 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568803",
-    "rank": "52.",
-    "title": "Random Poem",
-    "timestamp": "46 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568800",
-    "rank": "53.",
-    "title": "Fears of a Setting Sun",
-    "timestamp": "47 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568799",
-    "rank": "54.",
-    "title": "Exploding Pagers Injure hundreds of Hezbollah operatives",
-    "timestamp": "47 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568785",
-    "rank": "55.",
-    "title": "Device Memory TCP Included with the Networking Changes for Linux 6.12",
-    "timestamp": "48 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568783",
-    "rank": "56.",
-    "title": "What is a pager bomb (RCIED)?",
-    "timestamp": "48 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568775",
-    "rank": "57.",
-    "title": "The Printk Blocker for Upstreaming Real-Time \"Preempt_rt\" Has Been Merged",
-    "timestamp": "48 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568770",
-    "rank": "58.",
-    "title": "Do the benefits of the expanded child tax credit fade with time?",
-    "timestamp": "49 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568762",
-    "rank": "59.",
-    "title": "My First Experience with OCaml",
-    "timestamp": "49 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568760",
-    "rank": "60.",
-    "title": "Recent WhatsUp Gold Vulnerabilities Possibly Exploited in Ransomware Attacks",
-    "timestamp": "49 minutes ago",
-    "elapsedTime": "0 hour"
-  },
-  {
-    "id": "41568757",
-    "rank": "61.",
-    "title": "Intel preps Royal Core and Cobra Core microarchitectures for next-gen CPUs",
+    "title": "Archegos' Banks Had Some Chats",
     "timestamp": "50 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568745",
-    "rank": "62.",
-    "title": "Performance of Eigen vs. Blaze vs. Fastor vs. Armadillo vs. XTensor (2020)",
+    "id": "41571124",
+    "rank": "41.",
+    "title": "Show HN: I made a gamified AI dating app",
     "timestamp": "51 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568731",
-    "rank": "63.",
-    "title": "Mastodeck – Mastodon for Power Users",
+    "id": "41571118",
+    "rank": "42.",
+    "title": "OpenAI is opening a subsidiary company in Paris",
+    "timestamp": "52 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571114",
+    "rank": "43.",
+    "title": "Show HN: Fun AI Tool to Roast Your Website",
+    "timestamp": "52 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571107",
+    "rank": "44.",
+    "title": "Cetdigit",
     "timestamp": "53 minutes ago",
     "elapsedTime": "0 hour"
   },
   {
-    "id": "41568703",
+    "id": "41571079",
+    "rank": "45.",
+    "title": "Confluent jacks up Warpstream costs post acquisition",
+    "timestamp": "55 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571066",
+    "rank": "46.",
+    "title": "JPMorgan in Talks with Apple to Take over Credit Card from Goldman",
+    "timestamp": "57 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571062",
+    "rank": "47.",
+    "title": "GT Pantheon a new typeface from Grilli Type",
+    "timestamp": "57 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571050",
+    "rank": "48.",
+    "title": "The Photos That Exposed American Child Labor (2016)",
+    "timestamp": "59 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571044",
+    "rank": "49.",
+    "title": "We use hyperfine to measure PHP Engine performance",
+    "timestamp": "59 minutes ago",
+    "elapsedTime": "0 hour"
+  },
+  {
+    "id": "41571017",
+    "rank": "50.",
+    "title": "Mistral-Small-Instruct-2409",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41571016",
+    "rank": "51.",
+    "title": "Home-Cooked Spotify Player",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41571006",
+    "rank": "52.",
+    "title": "Node.js.org Is Down",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570983",
+    "rank": "53.",
+    "title": "Harland and Wolff, Titanic Shipbuilder, Files for Bankruptcy",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570981",
+    "rank": "54.",
+    "title": "Amazon employees: 'I'd rather go back to school than work in an office again'",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570944",
+    "rank": "55.",
+    "title": "1X World Model",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570943",
+    "rank": "56.",
+    "title": "Human embryo models are getting more realistic – raising ethical questions",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570941",
+    "rank": "57.",
+    "title": "Stop Glorifying Individual Mediocrity",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570924",
+    "rank": "58.",
+    "title": "Lucky You Musings from an oldster for today's younger generation",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570913",
+    "rank": "59.",
+    "title": "Tech is a cyclical industry: booms and busts are normal",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570912",
+    "rank": "60.",
+    "title": "The Crude System of Coded Messages Keeping Hamas's Leader Alive",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570908",
+    "rank": "61.",
+    "title": "Scrcpy 2.7 adds gamepad support to play Android games",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570880",
+    "rank": "62.",
+    "title": "What's in an (Alias) Name?",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570879",
+    "rank": "63.",
+    "title": "China has 'throttled' its private sector",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
+  },
+  {
+    "id": "41570875",
     "rank": "64.",
-    "title": "Legacy Modernization Meets GenAI",
-    "timestamp": "56 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Metro System maps from around the world",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
   },
   {
-    "id": "41568700",
+    "id": "41570860",
     "rank": "65.",
-    "title": "Bridging Images and Text – A Survey of VLMs",
-    "timestamp": "56 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Fed Ready to Unshackle US Economy with Soft Landing at Stake",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
   },
   {
-    "id": "41568690",
+    "id": "41570858",
     "rank": "66.",
-    "title": "Ask HN: New macOS, but I still have 2 issues",
-    "timestamp": "56 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Evidence suggesting that earth had a ring in the Ordovician",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
   },
   {
-    "id": "41568663",
+    "id": "41570852",
     "rank": "67.",
-    "title": "Show HN: Myfile, portable executable editable file",
-    "timestamp": "59 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "The Increasing Cost of Buying American",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
   },
   {
-    "id": "41568660",
+    "id": "41570847",
     "rank": "68.",
-    "title": "Ugrep: A more powerful, ultra fast, user-friendly, compatible grep",
-    "timestamp": "59 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Detective Wants to Free Robert Roberson for Shaken Baby Death",
+    "timestamp": "1 hour ago",
+    "elapsedTime": "1 hour"
   },
   {
-    "id": "41568649",
+    "id": "41570838",
     "rank": "69.",
-    "title": "Show HN: AI powered clinical trials search",
+    "title": "Public Web Comments with Cloudflare Email Workers",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568635",
+    "id": "41570819",
     "rank": "70.",
-    "title": "The Rise of Self-Cleaning, Cat-Killing Litter Boxes",
+    "title": "IBM acquires Kubernetes cost optimization startup Kubecost",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568634",
+    "id": "41570772",
     "rank": "71.",
-    "title": "My Experience with the Knowledge Society (TKS)",
+    "title": "Reclaiming Privacy Rights: A Roadmap for Organizations Fighting Surveillance",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568609",
+    "id": "41570765",
     "rank": "72.",
-    "title": "Fictional parasites different from our own",
+    "title": "Did GPT-4 try to hire a human?",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568595",
+    "id": "41570732",
     "rank": "73.",
-    "title": "Shein is the worst polluter now unsustainable industry and practices",
+    "title": "Stuxnet",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568591",
+    "id": "41570722",
     "rank": "74.",
-    "title": "Ask HN: What is the reason YC switched to 4 batches?",
+    "title": "Only About Startups",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568573",
+    "id": "41570714",
     "rank": "75.",
-    "title": "Show HN: Coefficients – Highly customizable health data dashboard and insights",
+    "title": "GraalWasm – A high-performance embeddable WebAssembly runtime for Java",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568538",
+    "id": "41570708",
     "rank": "76.",
-    "title": "15min-Cities Map",
+    "title": "GraalPy – A high-performance embeddable Python 3 runtime for Java",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568532",
+    "id": "41570702",
     "rank": "77.",
-    "title": "Physicists discover \"hidden turbulence\" throughout van Gogh's Starry Night",
+    "title": "Show HN: A Note-Taking App for the Way You Think",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568513",
+    "id": "41570697",
     "rank": "78.",
-    "title": "Audrey Hepburn: The Secret WW2 History of a Dutch Resistance Spy",
+    "title": "What's new in Graal Languages 24.1",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568512",
+    "id": "41570687",
     "rank": "79.",
-    "title": "A possible AI future: Persistent, connected and kind",
+    "title": "Why Do We Use Whitespace to Separate Identifiers in Programming Languages?",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568509",
+    "id": "41570663",
     "rank": "80.",
-    "title": "How (Startup) Scenes Work",
+    "title": "Digital Needle – A Virtual Gramophone",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568468",
+    "id": "41570661",
     "rank": "81.",
-    "title": "What Was Puberty Like for Ice Age Teens?",
+    "title": "Safeloop Architecture",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568460",
+    "id": "41570656",
     "rank": "82.",
-    "title": "Public Letter – Against Big Tech's Attack on Digital Sovereignties",
+    "title": "Trade Balances in China and the US Are Largely Driven by Domestic Macro Forces",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568451",
+    "id": "41570640",
     "rank": "83.",
-    "title": "Show HN: Pull requests for digital artifacts for founders and job-seekers",
+    "title": "AT&T Agrees to Pay $13M FCC Fine for Cloud Data Leak",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568445",
+    "id": "41570614",
     "rank": "84.",
-    "title": "GPU Acceleration with Polars and Nvidia Rapids",
+    "title": "Microsoft plan would kill kernel-level anti-cheat",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568442",
+    "id": "41570563",
     "rank": "85.",
-    "title": "Dimensional crossover in a quantum gas of light",
+    "title": "'Character Limit' Pulls Back the Curtain on Musk's Twitter Takeover",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568421",
+    "id": "41570549",
     "rank": "86.",
-    "title": "Super Simple Breadboard-SDR Receiver from 50 kHz to 30 MHz (2023) [video]",
+    "title": "Threema – The Secure Messaging App Without Data Collection",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568418",
+    "id": "41570517",
     "rank": "87.",
-    "title": "Things you should know about Windows Input, but would rather not",
+    "title": "Gowitness – a CLI screenshot utility that uses Chrome headless",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568395",
+    "id": "41570509",
     "rank": "88.",
-    "title": "Microsoft's Copilot 'Wave 2' is a tsunami of unanswered questions",
+    "title": "Goodhart's Law in Software Engineering",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568392",
+    "id": "41570499",
     "rank": "89.",
-    "title": "IEML, a language designed to structure and categorize information",
+    "title": "Show HN: Digital God – new CEO of your startup",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568362",
+    "id": "41570435",
     "rank": "90.",
-    "title": "Snowflake slams 'more MFA' button again – months after breaches",
+    "title": "How Reliable Is America's Electrical Grid?",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568356",
+    "id": "41570432",
     "rank": "91.",
-    "title": "Spectral Reflectance Newsletter #90",
+    "title": "A branchless quicksort partition algorithm (2023)",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568350",
+    "id": "41570395",
     "rank": "92.",
-    "title": "Instagram Is Restricting Teen Accounts–and Blocking Sneaky Workarounds",
+    "title": "Starlink provides time synchronization, an NTP server with GPS time",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568343",
+    "id": "41570377",
     "rank": "93.",
-    "title": "Launch HN: Marblism (YC W24) – Generate full-stack web apps from a prompt",
+    "title": "Kelvin Versioning",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568341",
+    "id": "41570362",
     "rank": "94.",
-    "title": "YouTube's founder mode, according to MrBeast",
+    "title": "An Analysis of SpaceX's Eva Suit",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568338",
+    "id": "41570361",
     "rank": "95.",
-    "title": "China claims Starlink signals can reveal stealth aircraft",
+    "title": "AI Chatbots Can Talk Conspiracy Theorists Out of Believing",
     "timestamp": "1 hour ago",
     "elapsedTime": "1 hour"
   },
   {
-    "id": "41568335",
+    "id": "41570280",
     "rank": "96.",
-    "title": "Hiring Lab Data Portal",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Announcing SurrealDB 2.0",
+    "timestamp": "2 hours ago",
+    "elapsedTime": "2 hours"
   },
   {
-    "id": "41568331",
+    "id": "41570277",
     "rank": "97.",
-    "title": "The AI Research Assistant You've Been Dreaming Of",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "JPMorgan in talks with Apple to take over its credit card program, WSJ reports",
+    "timestamp": "2 hours ago",
+    "elapsedTime": "2 hours"
   },
   {
-    "id": "41568324",
+    "id": "41570264",
     "rank": "98.",
-    "title": "AI App Starter: build AI apps in minutes, serve from anywhere",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "World of Ours (2014) [pdf]",
+    "timestamp": "2 hours ago",
+    "elapsedTime": "2 hours"
   },
   {
-    "id": "41568319",
+    "id": "41570251",
     "rank": "99.",
-    "title": "Ban warnings fly as users dare to probe the \"thoughts\" of OpenAI's latest model",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "A closer look at how data is transmitted using light",
+    "timestamp": "2 hours ago",
+    "elapsedTime": "2 hours"
   },
   {
-    "id": "41568308",
+    "id": "41570248",
     "rank": "100.",
-    "title": "Predator spyware kingpins added to US sanctions list",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Request/Response APIs in JavaScript web frameworks",
+    "timestamp": "2 hours ago",
+    "elapsedTime": "2 hours"
   }
 ]

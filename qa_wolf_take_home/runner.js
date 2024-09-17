@@ -1,11 +1,17 @@
 import { exec } from 'child_process';
-import open from 'open';  // for opening the dashboard in the browser
+import open from 'open';  // For opening the dashboard in the browser
 import fs from 'fs';
 
-// Function to execute Playwright tests across all browsers
+// ------------------ Helper Functions ------------------
+
+/**
+ * Function to execute Playwright tests with styled output.
+ * Uses the 'dot' reporter to show test progress.
+ */
 async function runTests() {
   return new Promise((resolve, reject) => {
-    const process = exec('npx playwright test', (error, stdout, stderr) => {
+    // Execute Playwright tests using npx with the 'dot' reporter for minimal styled output
+    const process = exec('npx playwright test --reporter=dot', (error, stdout, stderr) => {
       if (error) {
         console.error(`Error running tests: ${error}`);
         reject(error);
@@ -15,8 +21,9 @@ async function runTests() {
       }
     });
 
+    // Output the test progress in real-time
     process.stdout.on('data', data => {
-      console.log(data);
+      console.log(data);  // Display 'dot' style test progress
     });
 
     process.stderr.on('data', data => {
@@ -25,62 +32,71 @@ async function runTests() {
   });
 }
 
-// Function to start a local server and open the custom dashboard
+/**
+ * Function to start a local HTTP server and open the dashboard.
+ */
 async function startDashboard() {
   return new Promise((resolve, reject) => {
+    // Start an HTTP server to serve the dashboard.html
     const serverProcess = exec('npx http-server -p 8080', (error, stdout, stderr) => {
       if (error) {
         console.error(`Error starting server: ${error}`);
         reject(error);
       } else {
-        console.log('Custom server started on http://localhost:8080/dashboard.html');
+        console.log('Server started on http://localhost:8080/dashboard.html');
         resolve();
       }
     });
 
-    // Open the custom dashboard in the browser
-    open('http://localhost:8080/dashboard.html').then(() => {
-      console.log('Custom dashboard opened in browser');
+    // Open the dashboard in the default browser
+    open('http://localhost:8080/dashboard.html').catch(err => {
+      console.error(`Error opening the dashboard: ${err}`);
     });
   });
 }
 
-// Function to collect and store test results to a JSON file
+/**
+ * Function to collect and store test results to a JSON file.
+ */
 async function storeTestResults() {
   const resultsFilePath = 'testResults.json';
+  
   if (fs.existsSync(resultsFilePath)) {
-    console.log('Test results found, storing...');
+    try {
+      // Read and parse the test results from the JSON file
+      const data = fs.readFileSync(resultsFilePath, 'utf8');
+      const testResults = JSON.parse(data);
 
-    // Read and parse the test results
-    const data = fs.readFileSync(resultsFilePath, 'utf8');
-    const testResults = JSON.parse(data);
+      // Handle performance data warnings
+      testResults.forEach(result => {
+        if (!result.performance) {
+          console.warn(`Missing performance data for test: ${result.test}`);
+        }
+      });
 
-    testResults.forEach(result => {
-      if (!result.performance) {
-        console.warn(`Missing performance data for test: ${result.test}`);
-      }
-    });
-
-    // Store the test results
-    console.log('Storing test results:', JSON.stringify(testResults, null, 2));
+    } catch (error) {
+      console.error('Error reading or parsing test results:', error);
+    }
   } else {
     console.error('Test results file not found.');
   }
 }
 
-// Main function to run the whole process
+// ------------------ Main Execution Flow ------------------
+
+/**
+ * Main function to run tests, store results, and start the dashboard.
+ */
 async function main() {
   try {
-    // Step 1: Run Playwright tests
+    // Step 1: Run Playwright tests with styled output
     await runTests();
 
-    // Step 2: Store test results (optional for storing results)
+    // Step 2: Store the test results
     await storeTestResults();
 
-    // Step 3: Start the custom dashboard server and show it
+    // Step 3: Start the dashboard server
     await startDashboard();
-
-    // No Playwright dashboard being opened here
   } catch (error) {
     console.error('Error in runner script:', error);
   }

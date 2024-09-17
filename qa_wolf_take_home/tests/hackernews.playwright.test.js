@@ -4,7 +4,9 @@ import fs from 'fs';
 // ------------------ Helper Functions ------------------
 
 /**
- * Function to extract articles on the current page.
+ * Extract articles from the current page.
+ * @param {object} page - Playwright page object.
+ * @returns {Array} Array of articles with rank, title, and timestamp.
  */
 async function extractArticles(page) {
   const articles = await page.locator('.athing').evaluateAll(nodes => {
@@ -19,7 +21,9 @@ async function extractArticles(page) {
 }
 
 /**
- * Function to load more articles by clicking the "More" button.
+ * Load more articles by clicking the "More" button.
+ * @param {object} page - Playwright page object.
+ * @throws Will throw an error if the "More" button is not found.
  */
 async function loadMoreArticles(page) {
   const moreButton = page.locator('a.morelink');
@@ -27,54 +31,54 @@ async function loadMoreArticles(page) {
     await moreButton.click();
     await page.waitForTimeout(2000); // Wait for network idle state
   } else {
-    throw new Error('No More button found');  // Throw an error if the button is not visible
+    throw new Error('Error: "More" button not found on the page.');
   }
 }
 
 /**
- * Generic function to scrape and verify 100 articles from Hacker News.
+ * Scrape and verify 100 articles from Hacker News.
+ * @param {object} page - Playwright page object.
+ * @returns {Array} Array of 100 articles.
+ * @throws Will throw an error if fewer than 100 articles are collected.
  */
 async function scrapeAndVerifyArticles(page) {
   let allArticles = [];
 
   // Loop to collect at least 100 articles
   while (allArticles.length < 100) {
-    // Extract articles on the current page
     const newArticles = await extractArticles(page);
     if (newArticles.length === 0) {
-      console.error("No articles were found on this page, reloading...");
+      console.error('No articles found. Reloading the page...');
       await page.reload();
-      await page.waitForTimeout(3000); // Give it some time to load
-      continue; // Retry if no articles were found
+      await page.waitForTimeout(3000); // Give it time to reload
+      continue; // Retry scraping
     }
 
     allArticles = [...allArticles, ...newArticles];
 
-    // Remove duplicates to ensure article uniqueness
+    // Remove duplicates by title to ensure uniqueness
     const uniqueArticles = new Map(allArticles.map(article => [article.title, article]));
     allArticles = [...uniqueArticles.values()];
 
-    // Break the loop if we already have 100 articles
-    if (allArticles.length >= 100) break;
+    if (allArticles.length >= 100) break; // Exit if we have enough articles
 
-    // Check if the "More" button exists
+    // Try to load more articles if available
     const moreButton = await page.locator('a.morelink');
     if (await moreButton.isVisible()) {
       await moreButton.click();
       await page.waitForTimeout(2000); // Wait for network idle state
     } else {
-      console.log("No 'More' button found, stopping further article loading.");
-      break; // Stop if there is no "More" button, meaning no more articles to load
+      console.log('No more articles to load.');
+      break;
     }
   }
 
-  // Ensure we have exactly 100 articles
   if (allArticles.length < 100) {
-    throw new Error(`Failed to collect 100 articles. Only got ${allArticles.length} articles.`);
+    throw new Error(`Error: Only ${allArticles.length} articles were scraped.`);
   }
 
-  allArticles = allArticles.slice(0, 100);  // Limit to first 100 articles
-  expect(allArticles.length).toBe(100);  // Perform the expect check
+  allArticles = allArticles.slice(0, 100); // Limit to first 100 articles
+  expect(allArticles.length).toBe(100); // Assert that we have exactly 100 articles
   return allArticles;
 }
 
@@ -86,7 +90,7 @@ async function scrapeAndVerifyArticles(page) {
 test('Basic Scraping Test: Scrape and verify 100 articles from Hacker News', async ({ page }, testInfo) => {
   await page.goto('https://news.ycombinator.com/newest');
 
-  // Log performance timing from the page
+  // Capture performance metrics
   const performanceTiming = await page.evaluate(() => JSON.stringify(window.performance.timing));
   const timing = JSON.parse(performanceTiming);
 
@@ -95,19 +99,18 @@ test('Basic Scraping Test: Scrape and verify 100 articles from Hacker News', asy
 
   const articles = await scrapeAndVerifyArticles(page);
 
-  // Store performance and article count to testInfo for globalTeardown
+  // Store performance and article count for the globalTeardown
   testInfo.articles = articles.length;
   testInfo.performance = { pageLoadTime, timeToFirstByte };
 });
 
 /**
- * Basic Scraping Test with Error Handling: Scrape and verify 100 articles from Hacker News.
+ * Scraping Test with Error Handling: Scrape and verify 100 articles from Hacker News.
  */
 test('Basic Scraping Test with Error Handling: Scrape and verify 100 articles from Hacker News', async ({ page }, testInfo) => {
   try {
     await page.goto('https://news.ycombinator.com/newest');
 
-    // Log performance timing from the page
     const performanceTiming = await page.evaluate(() => JSON.stringify(window.performance.timing));
     const timing = JSON.parse(performanceTiming);
 
@@ -116,23 +119,20 @@ test('Basic Scraping Test with Error Handling: Scrape and verify 100 articles fr
 
     const articles = await scrapeAndVerifyArticles(page);
 
-    // Store performance and article count to testInfo for globalTeardown
     testInfo.articles = articles.length;
     testInfo.performance = { pageLoadTime, timeToFirstByte };
   } catch (error) {
-    console.error("Test failed with error:", error);
-    throw error;  // Fail the test if there is any error
+    console.error('Error: Test failed with error:', error);
+    throw error;
   }
 });
 
-
 /**
- * Performance Monitoring Test: Scrape and verify 100 articles from Hacker News with Performance Logging.
+ * Performance Monitoring Test: Scrape and verify 100 articles with performance logging.
  */
 test('Performance Monitoring Test: Scrape and verify 100 articles from Hacker News with Performance Logging', async ({ page }, testInfo) => {
   await page.goto('https://news.ycombinator.com/newest');
 
-  // Log performance timing from the page
   const performanceTiming = await page.evaluate(() => JSON.stringify(window.performance.timing));
   const timing = JSON.parse(performanceTiming);
 
@@ -142,20 +142,17 @@ test('Performance Monitoring Test: Scrape and verify 100 articles from Hacker Ne
 
   const articles = await scrapeAndVerifyArticles(page);
 
-  // Adding performance and article count to testInfo for tracking, ensuring no duplication
-  if (!testInfo.articles) {
-    testInfo.articles = articles.length;
-    testInfo.performance = { pageLoadTime, domContentLoadedTime, timeToFirstByte };
-  }
+  testInfo.articles = articles.length;
+  testInfo.performance = { pageLoadTime, domContentLoadedTime, timeToFirstByte };
 });
 
 // ------------------ AFTER EACH HOOK ------------------
 
 /**
- * afterEach hook to accumulate results and save them to a JSON file after each test.
+ * After each test, accumulate results and save them to a JSON file.
  */
 test.afterEach(async ({}, testInfo) => {
-  // Read the existing test results from the file, if it exists
+  // Read existing test results if the file exists
   let existingResults = [];
 
   if (fs.existsSync('testResults.json')) {
@@ -163,24 +160,24 @@ test.afterEach(async ({}, testInfo) => {
     existingResults = JSON.parse(data);
   }
 
-  // Check if the current test result is already present
+  // Check for duplicate results based on browser and test name
   const isDuplicate = existingResults.some(result =>
     result.browser === testInfo.project.name &&
     result.test === testInfo.title
   );
 
   if (!isDuplicate) {
-    // Add the current test result to the existing results if it's not a duplicate
+    // Append current test results if not a duplicate
     existingResults.push({
-      browser: testInfo.project.name,   // Get the browser name
-      test: testInfo.title,             // Get the test name
-      status: testInfo.status,          // Test passed/failed
-      articles: testInfo.articles || 0, // Number of articles scraped
-      performance: testInfo.performance || {}, // Performance metrics if available
-      error: testInfo.error || null     // Any error during the test
+      browser: testInfo.project.name,
+      test: testInfo.title,
+      status: testInfo.status,
+      articles: testInfo.articles || 0,
+      performance: testInfo.performance || {},
+      error: testInfo.error || null,
     });
-  
-    // Write the updated results back to the file
+
+    // Write the updated results to the JSON file
     fs.writeFileSync('testResults.json', JSON.stringify(existingResults, null, 2), 'utf-8');
   }
 });

@@ -5,7 +5,12 @@ import dotenv from 'dotenv';
 
 dotenv.config(); // Load environment variables
 
-// Function to send email notifications
+// ------------------ Notification Functions ------------------
+
+/**
+ * Sends an email notification with the test results summary.
+ * @param {string} summary - The test results summary to send via email.
+ */
 async function sendEmailNotification(summary) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -16,21 +21,24 @@ async function sendEmailNotification(summary) {
   });
 
   const mailOptions = {
-    from: process.env.EMAIL_USER,  // From your Gmail address
-    to: process.env.EMAIL_USER,  // Recipient email address
+    from: process.env.EMAIL_USER,  // Sender's email address
+    to: process.env.EMAIL_USER,    // Recipient's email address
     subject: 'Playwright Test Results Summary',
     text: summary,
   };
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log('Email notification sent!');
+    console.log('Email notification sent successfully!');
   } catch (error) {
-    console.error('Failed to send email notification:', error);
+    console.error('Error sending email notification:', error);
   }
 }
 
-// Function to send Slack notifications
+/**
+ * Sends a Slack notification with the test results summary.
+ * @param {string} summary - The test results summary to send via Slack.
+ */
 async function sendSlackNotification(summary) {
   const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
@@ -41,14 +49,19 @@ async function sendSlackNotification(summary) {
 
   try {
     await axios.post(SLACK_WEBHOOK_URL, {
-      text: summary,  // The message content sent to Slack
+      text: summary,  // Message content for Slack
     });
     console.log('Slack notification sent successfully!');
   } catch (error) {
-    console.error('Failed to send Slack notification:', error.response ? error.response.data : error.message);
+    console.error('Error sending Slack notification:', error.response ? error.response.data : error.message);
   }
 }
 
+// ------------------ Global Teardown ------------------
+
+/**
+ * Reads the test results and sends notifications via email and Slack.
+ */
 async function globalTeardown() {
   try {
     // Read test results from JSON file
@@ -65,7 +78,7 @@ async function globalTeardown() {
       groupedResults[result.test].push(result);
     });
 
-    // Generate summary by test
+    // Generate summary grouped by test name
     let summary = 'Test Results Summary by Test:\n\n';
 
     Object.keys(groupedResults).forEach(testName => {
@@ -82,12 +95,9 @@ async function globalTeardown() {
       });
     });
 
-    // Output to console (optional) and send notifications
-    console.log(summary);
-
-    // Send email and slack notifications
-    await sendEmailNotification(summary);  // Example function to send email
-    await sendSlackNotification(summary);  // Example function to send slack
+    // Send email and Slack notifications
+    await sendEmailNotification(summary);
+    await sendSlackNotification(summary);
 
   } catch (error) {
     console.error('Error reading test results file:', error);

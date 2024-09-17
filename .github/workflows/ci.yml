@@ -43,7 +43,7 @@ jobs:
         run: |
           npx playwright test --browser ${{ matrix.browser }}
 
-      # Step 6: Upload Playwright report (optional)
+      # Step 6: Upload Playwright report
       - name: Upload Playwright Test Report
         if: always()
         uses: actions/upload-artifact@v2
