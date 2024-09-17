@@ -1,9 +1,9 @@
 {
   "testName": "Basic Scraping Test",
   "status": "passed",
-  "executionTime": 470,
+  "executionTime": 475,
   "performance": {
-    "pageLoadTime": 435,
-    "timeToFirstByte": 260
+    "pageLoadTime": 421,
+    "timeToFirstByte": 257
   }
 }

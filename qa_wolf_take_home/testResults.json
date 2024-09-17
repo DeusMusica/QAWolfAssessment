@@ -1,0 +1,104 @@
+[
+  {
+    "browser": "chromium",
+    "test": "Performance Monitoring Test: Scrape and verify 100 articles from Hacker News with Performance Logging",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 364,
+      "domContentLoadedTime": 364,
+      "timeToFirstByte": 202
+    },
+    "error": null
+  },
+  {
+    "browser": "chromium",
+    "test": "Basic Scraping Test with Error Handling: Scrape and verify 100 articles from Hacker News",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 409,
+      "timeToFirstByte": 228
+    },
+    "error": null
+  },
+  {
+    "browser": "firefox",
+    "test": "Basic Scraping Test: Scrape and verify 100 articles from Hacker News",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 568,
+      "timeToFirstByte": 298
+    },
+    "error": null
+  },
+  {
+    "browser": "firefox",
+    "test": "Basic Scraping Test with Error Handling: Scrape and verify 100 articles from Hacker News",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 651,
+      "timeToFirstByte": 359
+    },
+    "error": null
+  },
+  {
+    "browser": "firefox",
+    "test": "Performance Monitoring Test: Scrape and verify 100 articles from Hacker News with Performance Logging",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 557,
+      "domContentLoadedTime": 526,
+      "timeToFirstByte": 323
+    },
+    "error": null
+  },
+  {
+    "browser": "chromium",
+    "test": "Basic Scraping Test: Scrape and verify 100 articles from Hacker News",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 326,
+      "timeToFirstByte": 220
+    },
+    "error": null
+  },
+  {
+    "browser": "webkit",
+    "test": "Basic Scraping Test: Scrape and verify 100 articles from Hacker News",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 404,
+      "timeToFirstByte": 246
+    },
+    "error": null
+  },
+  {
+    "browser": "webkit",
+    "test": "Basic Scraping Test with Error Handling: Scrape and verify 100 articles from Hacker News",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 409,
+      "timeToFirstByte": 252
+    },
+    "error": null
+  },
+  {
+    "browser": "webkit",
+    "test": "Performance Monitoring Test: Scrape and verify 100 articles from Hacker News with Performance Logging",
+    "status": "passed",
+    "articles": 100,
+    "performance": {
+      "pageLoadTime": 432,
+      "domContentLoadedTime": 319,
+      "timeToFirstByte": 245
+    },
+    "error": null
+  }
+]

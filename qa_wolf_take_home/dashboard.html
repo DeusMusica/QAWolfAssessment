@@ -3,103 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test Results Dashboard</title>
+  <title>Scraped Articles and Test Results Dashboard</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>Test Results Dashboard</h1>
+  <h1>Scraped Articles and Test Results Dashboard</h1>
 
-  <!-- Test Status (Pass/Fail) Chart -->
-  <h2>Test Status</h2>
-  <canvas id="statusChart" width="400" height="200"></canvas>
+  <!-- Display Scraped Articles -->
+  <h2>Scraped Articles</h2>
+  <ul id="articleList"></ul>
 
-  <!-- Test Execution Time Chart -->
-  <h2>Test Execution Time (ms)</h2>
-  <canvas id="executionTimeChart" width="400" height="200"></canvas>
+  <!-- Display Test Results -->
+  <h2>Test Results</h2>
+  <ul id="testResultsList"></ul>
 
-  <!-- Performance Metrics Chart -->
-  <h2>Performance Metrics (Page Load & Time to First Byte)</h2>
+  <!-- Performance Chart -->
+  <h2>Performance Monitoring</h2>
   <canvas id="performanceChart" width="400" height="200"></canvas>
 
   <script>
-    function loadTestData() {
-      // Fetch the test performance data (basic scraping test as an example)
-      fetch('basic-scraping-performance.json')
-        .then(response => response.json())
-        .then(data => {
-          const status = data.status === 'passed' ? 1 : 0;
-          const executionTime = data.executionTime;
-          const { pageLoadTime, timeToFirstByte } = data.performance;
-
-          // Display Test Status (Pass/Fail)
-          const statusCtx = document.getElementById('statusChart').getContext('2d');
-          new Chart(statusCtx, {
-            type: 'pie',
-            data: {
-              labels: ['Passed', 'Failed'],
-              datasets: [{
-                data: [status, 1 - status],  // Passed vs Failed
-                backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 99, 132, 0.6)'],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              responsive: false,
-              maintainAspectRatio: false,
-            }
-          });
-
-          // Display Test Execution Time
-          const executionCtx = document.getElementById('executionTimeChart').getContext('2d');
-          new Chart(executionCtx, {
-            type: 'bar',
-            data: {
-              labels: [data.testName],
-              datasets: [{
-                label: 'Execution Time (ms)',
-                data: [executionTime],
-                backgroundColor: 'rgba(75, 192, 192, 0.6)',
-                borderWidth: 1
-              }]
-            },
-            options: {
-              responsive: false,
-              maintainAspectRatio: false,
-            }
-          });
-
-          // Display Performance Metrics (Page Load & Time to First Byte)
-          const performanceCtx = document.getElementById('performanceChart').getContext('2d');
-          new Chart(performanceCtx, {
-            type: 'bar',
-            data: {
-              labels: ['Page Load Time', 'Time to First Byte'],
-              datasets: [{
-                label: 'Performance (ms)',
-                data: [pageLoadTime, timeToFirstByte],
-                backgroundColor: ['rgba(54, 162, 235, 0.6)', 'rgba(255, 206, 86, 0.6)'],
-                borderWidth: 1
-              }]
-            },
-            options: {
-              scales: {
-                y: { beginAtZero: true }
-              },
-              responsive: false,
-              maintainAspectRatio: false,
-            }
-          });
-        })
-        .catch(error => console.error('Error fetching test data:', error));
+    // Function to display articles
+    function displayArticles(articles) {
+      const articleList = document.getElementById('articleList');
+      articleList.innerHTML = ''; // Clear existing content
+      
+      if (articles && articles.length > 0) {
+        articles.forEach(article => {
+          const li = document.createElement('li');
+          li.textContent = `ID: ${article.id}, Rank: ${article.rank}, Title: ${article.title}, Time Elapsed: ${article.elapsedTime}`;
+          articleList.appendChild(li);
+        });
+      } else {
+        articleList.textContent = 'No articles found.';
+      }
     }
 
-    // Load test data when the page loads
-    loadTestData();
+    // Function to display test results
+    function displayTestResults(testResults) {
+      const testResultsList = document.getElementById('testResultsList');
+      testResultsList.innerHTML = ''; // Clear existing content
 
-    // Optional: Add a refresh button to reload the data manually
-    document.getElementById('refreshButton')?.addEventListener('click', () => {
-      loadTestData();
-    });
+      if (testResults && testResults.length > 0) {
+        testResults.forEach(result => {
+          const li = document.createElement('li');
+          li.innerHTML = `
+            <strong>Test:</strong> ${result.test} <br>
+            <strong>Browser:</strong> ${result.browser} <br>
+            <strong>Status:</strong> ${result.status} <br>
+            <strong>Articles:</strong> ${result.articles} <br>
+            <strong>Page Load Time:</strong> ${result.performance ? result.performance.pageLoadTime : 'N/A'} ms <br>
+            <strong>Time to First Byte:</strong> ${result.performance ? result.performance.timeToFirstByte : 'N/A'} ms <br>
+            <strong>Error:</strong> ${result.error || 'None'}
+          `;
+          testResultsList.appendChild(li);
+        });
+      } else {
+        testResultsList.textContent = 'No test results found.';
+      }
+    }
+
+    // Function to draw performance chart
+    function drawPerformanceChart(testResults) {
+      const ctx = document.getElementById('performanceChart').getContext('2d');
+      const labels = testResults.map(result => `${result.test} (${result.browser})`);
+      const pageLoadTimes = testResults.map(result => result.performance ? result.performance.pageLoadTime : 0);
+      const timeToFirstByte = testResults.map(result => result.performance ? result.performance.timeToFirstByte : 0);
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Page Load Time (ms)',
+              data: pageLoadTimes,
+              backgroundColor: 'rgba(75, 192, 192, 0.6)',
+              borderWidth: 1
+            },
+            {
+              label: 'Time to First Byte (ms)',
+              data: timeToFirstByte,
+              backgroundColor: 'rgba(255, 99, 132, 0.6)',
+              borderWidth: 1
+            }
+          ]
+        },
+        options: {
+          scales: {
+            y: { beginAtZero: true }
+          }
+        }
+      });
+    }
+
+    // Fetch the scraped articles and display them
+    fetch('scraped-articles.json')
+      .then(response => response.json())
+      .then(data => {
+        displayArticles(data);
+      })
+      .catch(error => console.error('Error fetching articles:', error));
+
+    // Fetch the test results and display them
+    fetch('testResults.json')
+      .then(response => response.json())
+      .then(data => {
+        displayTestResults(data);
+        drawPerformanceChart(data);
+      })
+      .catch(error => console.error('Error fetching test results:', error));
   </script>
 </body>
 </html>
