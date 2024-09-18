@@ -24,6 +24,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
+  globalTeardown: resolve('./qa_wolf_take_home/globalTeardown.js'),
   reporter: [
     ['list'],  // Console reporter
     ['html', { outputFolder: 'playwright-report'}]
@@ -33,7 +34,6 @@ export default defineConfig({
     headless: true,   // Run in headless mode by default
     viewport: { width: 1280, height: 720 }, // Set default viewport size
   },
-  globalTeardown: resolve('./globalTeardown.js'),
 
   /* Configure projects for major browsers */
   projects: [
