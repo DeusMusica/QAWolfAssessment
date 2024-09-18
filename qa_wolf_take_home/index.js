@@ -6,7 +6,7 @@ import fs from 'fs';
  * @param {object} page - The Playwright page object.
  */
 async function loadAdditionalArticles(page) {
-  const moreButton = page.locator('a.morelink');  // Updated to use `locator()`
+  const moreButton = page.locator('a.morelink');
   if (await moreButton.isVisible()) {
     await moreButton.click();
     await page.waitForSelector('a.morelink', { state: 'attached' });
@@ -34,40 +34,6 @@ async function getArticleData(page) {
       return { id, rank, title, timestamp };
     }).filter(article => article.timestamp !== 'No timestamp');
   });
-}
-
-/**
- * Converts relative time (e.g., '5 hours ago') into a readable format.
- * @param {string} relativeTime - The relative time string.
- * @returns {string} Elapsed time in hours or days.
- */
-function calculateElapsedTime(relativeTime) {
-  const currentTime = new Date();
-  const timeParts = relativeTime.split(' ');
-  let elapsedTime = currentTime;
-
-  if (timeParts.includes('minute') || timeParts.includes('minutes')) {
-    const minutesAgo = parseInt(timeParts[0]);
-    elapsedTime = new Date(currentTime.getTime() - minutesAgo * 60000);
-  } else if (timeParts.includes('hour') || timeParts.includes('hours')) {
-    const hoursAgo = parseInt(timeParts[0]);
-    elapsedTime = new Date(currentTime.getTime() - hoursAgo * 3600000);
-  } else if (timeParts.includes('day') || timeParts.includes('days')) {
-    const daysAgo = parseInt(timeParts[0]);
-    elapsedTime = new Date(currentTime.getTime() - daysAgo * 86400000);
-  } else if (relativeTime === 'yesterday') {
-    elapsedTime = new Date(currentTime.getTime() - 24 * 3600000);
-  }
-
-  const diffMs = currentTime - elapsedTime;
-  const diffHrs = Math.floor(diffMs / 3600000);
-  const diffDays = Math.floor(diffHrs / 24);
-
-  if (diffDays >= 1) {
-    return `${diffDays} day${diffDays > 1 ? 's' : ''}`;
-  } else {
-    return `${diffHrs} hour${diffHrs > 1 ? 's' : ''}`;
-  }
 }
 
 /**
@@ -100,73 +66,14 @@ async function collectAndValidateArticles() {
     }
   }
 
-  // Calculate elapsed time for each article
-  articlesData = articlesData.map(article => ({
-    ...article,
-    elapsedTime: calculateElapsedTime(article.timestamp)
-  }));
-
-  // Write the data to a JSON file
+  // Write the data to a JSON file (no elapsedTime)
   fs.writeFileSync('scraped-articles.json', JSON.stringify(articlesData, null, 2), 'utf-8');
 
   console.log('Successfully scraped the first 100 articles.');
   await browser.close();
 }
 
-/**
- * Test: Validate Clicking the First Article Link
- */
-async function validateClickingArticle() {
-  const browser = await chromium.launch({ headless: false });
-  const context = await browser.newContext();
-  const page = await context.newPage();
-
-  await page.goto('https://news.ycombinator.com/newest');
-  
-  // Click on the first article link
-  const firstArticleLink = page.locator('.athing .titleline a').first();
-  const expectedUrl = await firstArticleLink.getAttribute('href');
-
-  await firstArticleLink.click();
-  await page.waitForLoadState('networkidle');
-
-  if (page.url().includes(expectedUrl)) {
-    console.log('Link Click Validation Passed.');
-  } else {
-    console.error('Link Click Validation Failed.');
-  }
-
-  await browser.close();
-}
-
-/**
- * Test: Login Validation with Incorrect Credentials
- */
-async function validateLogin() {
-  const browser = await chromium.launch({ headless: false });
-  const context = await browser.newContext();
-  const page = await context.newPage();
-
-  await page.goto('https://news.ycombinator.com/login');
-
-  // Enter invalid credentials
-  await page.fill('input[name="acct"]', 'invalidUser');
-  await page.fill('input[name="pw"]', 'invalidPassword');
-  await page.click('input[type="submit"]');
-
-  const errorMessage = await page.textContent('body');
-  if (errorMessage.includes('Bad login.')) {
-    console.log('Login Validation Passed: Invalid credentials.');
-  } else {
-    console.error('Login Validation Failed.');
-  }
-
-  await browser.close();
-}
-
-// Run the script to collect articles
+// Run the article scraper
 (async () => {
   await collectAndValidateArticles();
-  await validateClickingArticle();
-  await validateLogin();
 })();

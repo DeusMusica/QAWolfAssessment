@@ -1,702 +1,602 @@
 [
   {
-    "id": "41575758",
+    "id": "41579460",
     "rank": "1.",
-    "title": "A Learning Map (2018)",
-    "timestamp": "0 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "The Symbolics Genera Programming Environment (1987)",
+    "timestamp": "0 minutes ago"
   },
   {
-    "id": "41575721",
+    "id": "41579447",
     "rank": "2.",
-    "title": "Simulating 500M years of evolution with a language model",
-    "timestamp": "8 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Norway: Electric cars outnumber petrol for first time in 'historic milestone'",
+    "timestamp": "2 minutes ago"
   },
   {
-    "id": "41575719",
+    "id": "41579431",
     "rank": "3.",
-    "title": "AI Risk Repository",
-    "timestamp": "8 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Identity's Hidden Business Value",
+    "timestamp": "4 minutes ago"
   },
   {
-    "id": "41575694",
+    "id": "41579405",
     "rank": "4.",
-    "title": "Show HN: Rosekey",
-    "timestamp": "15 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Track Developer Productivity via Deep Work?",
+    "timestamp": "6 minutes ago"
   },
   {
-    "id": "41575691",
+    "id": "41579356",
     "rank": "5.",
-    "title": "1X World Model",
-    "timestamp": "15 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Teen tried a suicide chemical he got online, then sought help. It was too late",
+    "timestamp": "11 minutes ago"
   },
   {
-    "id": "41575670",
+    "id": "41579355",
     "rank": "6.",
-    "title": "Docker Compose Builder",
-    "timestamp": "18 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "AI tool cuts unexpected deaths in hospital by 26%, Canadian study finds",
+    "timestamp": "11 minutes ago"
   },
   {
-    "id": "41575666",
+    "id": "41579354",
     "rank": "7.",
-    "title": "Schumacher in the age of generative AI: Towards a new critique of technology",
-    "timestamp": "19 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Five hundred and seven Mechanical Movements",
+    "timestamp": "11 minutes ago"
   },
   {
-    "id": "41575574",
+    "id": "41579346",
     "rank": "8.",
-    "title": "Ask HN: What about a web based desktop framework from the ground up?",
-    "timestamp": "35 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Demo: CSV-App with History",
+    "timestamp": "12 minutes ago"
   },
   {
-    "id": "41575565",
+    "id": "41579307",
     "rank": "9.",
-    "title": "Edifice: React, but Python Instead of JavaScript, Qt Widgets Instead of HTML DOM",
-    "timestamp": "36 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "I'm Still Scared of Flying",
+    "timestamp": "16 minutes ago"
   },
   {
-    "id": "41575541",
+    "id": "41579275",
     "rank": "10.",
-    "title": "Susan Wojcicki, former YouTube CEO and Silicon Valley visionary, dies at 56",
-    "timestamp": "40 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "Bramus/caniuse-CLI, a CLI tool for \"Can I Use \"",
+    "timestamp": "18 minutes ago"
   },
   {
-    "id": "41575539",
+    "id": "41579268",
     "rank": "11.",
-    "title": "Cabin pressure issue on Delta flight causes bloody ears and noses for passengers",
-    "timestamp": "40 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "GPU Puzzles",
+    "timestamp": "20 minutes ago"
   },
   {
-    "id": "41575492",
+    "id": "41579251",
     "rank": "12.",
-    "title": "Show HN: CharClub AI: Roleplay Chat Adventure",
-    "timestamp": "51 minutes ago",
-    "elapsedTime": "0 hour"
+    "title": "A billion new developers thanks to AI?",
+    "timestamp": "22 minutes ago"
   },
   {
-    "id": "41575424",
+    "id": "41579242",
     "rank": "13.",
-    "title": "Please stop – putting cookie pop-ups on your website (2022)",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "A team developed accessible maps for colorblind scientists",
+    "timestamp": "23 minutes ago"
   },
   {
-    "id": "41575392",
+    "id": "41579237",
     "rank": "14.",
-    "title": "The log/event processing pipeline you can't have (2019)",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Show HN: TagBug – Open source bug reporting tool",
+    "timestamp": "24 minutes ago"
   },
   {
-    "id": "41575333",
+    "id": "41579220",
     "rank": "15.",
-    "title": "Gold Apollo says it did not make pagers used in Lebanon explosions",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Data Liberation Project Joins MuckRock and Big Local News",
+    "timestamp": "25 minutes ago"
   },
   {
-    "id": "41575323",
+    "id": "41579214",
     "rank": "16.",
-    "title": "Scramble: Open-Source Alternative to Grammarly",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Using an External Git Repo for My Emacs Config with Nix",
+    "timestamp": "26 minutes ago"
   },
   {
-    "id": "41575319",
+    "id": "41579212",
     "rank": "17.",
-    "title": "What we know about the Hezbollah pagers attack",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Show HN: A visual editor for your UI libraries",
+    "timestamp": "26 minutes ago"
   },
   {
-    "id": "41575312",
+    "id": "41579183",
     "rank": "18.",
-    "title": "Random Endangered Animal Generator – Discover and Learn About At-Risk Species",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Show HN: I created free tools to fill the gap in Stripe reporting functionality",
+    "timestamp": "29 minutes ago"
   },
   {
-    "id": "41575300",
+    "id": "41579179",
     "rank": "19.",
-    "title": "Asgard launches world's first DDR5-9600 DIMMs",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Companies House (UK) REST API",
+    "timestamp": "29 minutes ago"
   },
   {
-    "id": "41575297",
+    "id": "41579175",
     "rank": "20.",
-    "title": "Show HN: I'm making a text editor for desktop (gonna build AI in it soon)",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Edge AI and Cloud Computing: A Powerful Partnership for the Future",
+    "timestamp": "29 minutes ago"
   },
   {
-    "id": "41575280",
+    "id": "41579174",
     "rank": "21.",
-    "title": "Caracal – Multiplayer Cloud Browser",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Show HN: Oneboard, notes powered by OpenAI o1",
+    "timestamp": "29 minutes ago"
   },
   {
-    "id": "41575276",
+    "id": "41579169",
     "rank": "22.",
-    "title": "Sonoma's unfinished business: exclaves, conclaves and the kernel",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Sharding and Scaling PostgreSQL, No Citus",
+    "timestamp": "30 minutes ago"
   },
   {
-    "id": "41575244",
+    "id": "41579154",
     "rank": "23.",
-    "title": "A $5B NASA Mission Looked Doomed. Could Engineers Save It?",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Ban warnings fly as users dare to probe the \"thoughts\" of OpenAI's latest model",
+    "timestamp": "31 minutes ago"
   },
   {
-    "id": "41575219",
+    "id": "41579151",
     "rank": "24.",
-    "title": "Adderall in Higher Doses May Raise Psychosis Risk, Study Says",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "cube 2 – sauerbraten.org – open-source game engine and FPS",
+    "timestamp": "31 minutes ago"
   },
   {
-    "id": "41575174",
+    "id": "41579134",
     "rank": "25.",
-    "title": "Mind the Gap: Dev Journey Tube Map",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Ask HN: Good Sites for/with AI Enthusiasts?",
+    "timestamp": "33 minutes ago"
   },
   {
-    "id": "41575165",
+    "id": "41579131",
     "rank": "26.",
-    "title": "Fixing a $30k Mistake [video]",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Warp Drives and Closed Timelike Curves",
+    "timestamp": "33 minutes ago"
   },
   {
-    "id": "41575143",
+    "id": "41579126",
     "rank": "27.",
-    "title": "A Secure Foundry for Government Mobile Computing Needs",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "What is new in Java 23?",
+    "timestamp": "34 minutes ago"
   },
   {
-    "id": "41575138",
+    "id": "41579115",
     "rank": "28.",
-    "title": "Israel Planted Explosives in Pagers Sold to Hezbollah, Officials Say",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "SQLite: How It Works [video]",
+    "timestamp": "35 minutes ago"
   },
   {
-    "id": "41575121",
+    "id": "41579111",
     "rank": "29.",
-    "title": "U.S. Expands Personal Sanctions on Israeli-Spyware Firm Intellexa",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "13 Years at Snap Inc.",
+    "timestamp": "36 minutes ago"
   },
   {
-    "id": "41575117",
+    "id": "41579110",
     "rank": "30.",
-    "title": "AI-Powered Git Command Generator",
-    "timestamp": "1 hour ago",
-    "elapsedTime": "1 hour"
+    "title": "Building Production Applications Using Go and SQLite (2021) [video]",
+    "timestamp": "36 minutes ago"
   },
   {
-    "id": "41575044",
+    "id": "41579090",
     "rank": "31.",
-    "title": "When Infrastructure Gets Hacked",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Show HN: Letterboxd Movie Recommendations",
+    "timestamp": "40 minutes ago"
   },
   {
-    "id": "41575027",
+    "id": "41579088",
     "rank": "32.",
-    "title": "Coinbase CEO Defends Against Off-Chain Settlement Rumors",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Lionsgate, Studio Behind 'John Wick,' Signs Deal with AI Startup Runway",
+    "timestamp": "40 minutes ago"
   },
   {
-    "id": "41575016",
+    "id": "41579085",
     "rank": "33.",
-    "title": "Murders, drug deals stopped as police hack 'secret' app",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Low Background Steel",
+    "timestamp": "41 minutes ago"
   },
   {
-    "id": "41574994",
+    "id": "41579046",
     "rank": "34.",
-    "title": "Qubes OS 4.2.3 has been released",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Sports Bar Bullies Seafood Joint to Rename Menu Item over 'Crab Fries' Trademark",
+    "timestamp": "44 minutes ago"
   },
   {
-    "id": "41574991",
+    "id": "41579042",
     "rank": "35.",
-    "title": "iOS API for writing data that survives a factory reset",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Our Solution to the Housing Crisis",
+    "timestamp": "44 minutes ago"
   },
   {
-    "id": "41574975",
+    "id": "41579017",
     "rank": "36.",
-    "title": "Fighting trade-based money laundering with price-checking technology",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Challengers Are Coming for Nvidia's Crown",
+    "timestamp": "46 minutes ago"
   },
   {
-    "id": "41574970",
+    "id": "41579014",
     "rank": "37.",
-    "title": "We always explain our decisions to our customers",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Ask HN: How to roll out an internal UI component library",
+    "timestamp": "46 minutes ago"
   },
   {
-    "id": "41574965",
+    "id": "41579011",
     "rank": "38.",
-    "title": "PyWeek, a bi-annual game jam to write games in Python",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Crypto bros wrested Flappy Bird from its creator",
+    "timestamp": "47 minutes ago"
   },
   {
-    "id": "41574962",
+    "id": "41579009",
     "rank": "39.",
-    "title": "Tell HN: Using Warp or iCloud Private Relay on macOS Sequoia Breaks Facetime",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Pincone",
+    "timestamp": "47 minutes ago"
   },
   {
-    "id": "41574937",
+    "id": "41579006",
     "rank": "40.",
-    "title": "Meta AI Acceleration in the Next-Gen Meta MTIA for Recommendation Inference",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "House Looks to Make KOSA and Coppa Worse",
+    "timestamp": "47 minutes ago"
   },
   {
-    "id": "41574910",
+    "id": "41579004",
     "rank": "41.",
-    "title": "Multimodal RAG",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Common Core Is the Main Cause of Youth Mental Health Deterioration Since 2010",
+    "timestamp": "48 minutes ago"
   },
   {
-    "id": "41574891",
+    "id": "41578999",
     "rank": "42.",
-    "title": "Yale, Princeton and Duke Are Questioned over Decline in Asian Students",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "SQLite: Past, Present, and Future (2022) [video]",
+    "timestamp": "48 minutes ago"
   },
   {
-    "id": "41574888",
+    "id": "41578989",
     "rank": "43.",
-    "title": "A Way to Land High-Paying Leadership Roles",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Large plasma bubble over the pyramids in Giza detected",
+    "timestamp": "48 minutes ago"
   },
   {
-    "id": "41574878",
+    "id": "41578982",
     "rank": "44.",
-    "title": "Five medical innovations that give me hope",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "The Domination Tour – The American Prospect",
+    "timestamp": "49 minutes ago"
   },
   {
-    "id": "41574844",
+    "id": "41578980",
     "rank": "45.",
-    "title": "Apple Mobile Processors Are Now Made in America. By TSMC",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "FOSDEM 2025 will be on February 1st and 2nd",
+    "timestamp": "49 minutes ago"
   },
   {
-    "id": "41574842",
+    "id": "41578975",
     "rank": "46.",
-    "title": "Missing Out on GLP-1",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Bright unintended electromagnetic radiation from Starlink satellites",
+    "timestamp": "50 minutes ago"
   },
   {
-    "id": "41574802",
+    "id": "41578972",
     "rank": "47.",
-    "title": "California passes protections for performers' likeness from AI",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "3 Kids, 3 cesium clocks, a family road trip to measure time dilation (2006)",
+    "timestamp": "50 minutes ago"
   },
   {
-    "id": "41574792",
+    "id": "41578970",
     "rank": "48.",
-    "title": "JPMorgan could take over Goldman's Apple Card business",
-    "timestamp": "2 hours ago",
-    "elapsedTime": "2 hours"
+    "title": "Xenobots: Cellular platform for development of synthetic living machines (2021)",
+    "timestamp": "50 minutes ago"
   },
   {
-    "id": "41574725",
+    "id": "41578969",
     "rank": "49.",
-    "title": "Apple halts iPadOS 18 update for M4 iPad Pro after bricking reports",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "KOSA Is Being Marked Up Today While Meta Tries to Show That It Can Self-Regulate",
+    "timestamp": "51 minutes ago"
   },
   {
-    "id": "41574723",
+    "id": "41578952",
     "rank": "50.",
-    "title": "Dr. Hologram will see you now: Virtual specialists visit cancer patients",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Law enforcement agencies undermine Tor anonymisation",
+    "timestamp": "53 minutes ago"
   },
   {
-    "id": "41574718",
+    "id": "41578948",
     "rank": "51.",
-    "title": "California's 5 new AI laws crack down on election deepfakes and actor clones",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Show HN: An iOS app to make SwiftUI apps with AI prompts",
+    "timestamp": "53 minutes ago"
   },
   {
-    "id": "41574700",
+    "id": "41578941",
     "rank": "52.",
-    "title": "Exploring pre-1990 versions of wc(1) (2023)",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Windmills Are Not Like Dams [video]",
+    "timestamp": "55 minutes ago"
   },
   {
-    "id": "41574689",
+    "id": "41578937",
     "rank": "53.",
-    "title": "Surgery, shame and self-erasure: the tyranny of impossible beauty standards",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Tyranny of Small Decisions",
+    "timestamp": "55 minutes ago"
   },
   {
-    "id": "41574684",
+    "id": "41578932",
     "rank": "54.",
-    "title": "Covid-19 rates oscillate every six months in the US, new study shows",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Show HN: A browser extension for multi-language content summarization",
+    "timestamp": "56 minutes ago"
   },
   {
-    "id": "41574664",
+    "id": "41578931",
     "rank": "55.",
-    "title": "Intel Processor N95 vs. N97 vs. N100 vs. Core I3-N305 Benchmarks Comparison",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Are Bugs Disappearing?",
+    "timestamp": "56 minutes ago"
   },
   {
-    "id": "41574633",
+    "id": "41578928",
     "rank": "56.",
-    "title": "Lead-Free Solder and Flux Testing – Finding the Optimal Combinations",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "A subprime AI crisis is brewing",
+    "timestamp": "56 minutes ago"
   },
   {
-    "id": "41574610",
+    "id": "41578923",
     "rank": "57.",
-    "title": "Why don't more people use Linux",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Rendering 4D Objects",
+    "timestamp": "56 minutes ago"
   },
   {
-    "id": "41574607",
+    "id": "41578913",
     "rank": "58.",
-    "title": "Debt Assignment, Slavery and Privity of Contract",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "The Hiring Post",
+    "timestamp": "57 minutes ago"
   },
   {
-    "id": "41574590",
+    "id": "41578907",
     "rank": "59.",
-    "title": "OpenAI O1 IOI Submissions",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Craigslist Founder Pledges $100M to Boost U.S. Cybersecurity",
+    "timestamp": "58 minutes ago"
   },
   {
-    "id": "41574584",
+    "id": "41578894",
     "rank": "60.",
-    "title": "Calling Linux Kernel Functions from Userspace Using Drgn",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "23andMe independent directors resign from board",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574570",
+    "id": "41578892",
     "rank": "61.",
-    "title": "University of Maryland President Copied Rocket Science Paper from Aussie Student",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Detonated Hezbollah pagers were made in Hungary",
+    "timestamp": "59 minutes ago"
   },
   {
-    "id": "41574539",
+    "id": "41578881",
     "rank": "62.",
-    "title": "Restyle – Zero Config CSS for React",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Gnome 2.2 Release Notes",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574528",
+    "id": "41578875",
     "rank": "63.",
-    "title": "Furi FLX1 Linux Smartphone",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Dozens arrested as crime message network dismantled",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574527",
+    "id": "41578874",
     "rank": "64.",
-    "title": "Physician–patient racial concordance and newborn mortality",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Show HN: NativeWindUI – Native Feeling TailwindUI for React Native",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574475",
+    "id": "41578867",
     "rank": "65.",
-    "title": "Meta showcases the hardware that will power recommendations for Facebook and IG",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Released my first solo game about humans taking robot jobs, a ludum dare winner",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574469",
+    "id": "41578846",
     "rank": "66.",
-    "title": "Zig Devlog",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "1 Killed, Several Injured After Shooting Outside Online Retailer Moscow Office",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574452",
+    "id": "41578839",
     "rank": "67.",
-    "title": "Pager explosions: Is it hacked or packed?",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Building a compile-time SIMD optimized smoothing filter",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574428",
+    "id": "41578832",
     "rank": "68.",
-    "title": "I Hacked WhatsApp Web in 3 Days",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "DrawingSpinUp: 3D Animation from Single Character Drawings",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574415",
+    "id": "41578825",
     "rank": "69.",
-    "title": "Fargate Is Not Firecracker",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "A Beginner's Guide to the OpenTelemetry Collector",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574396",
+    "id": "41578818",
     "rank": "70.",
-    "title": "Larry Ellison's AI-Powered Surveillance Dystopia Is Already Here",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Changes Everything [video]",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574389",
+    "id": "41578792",
     "rank": "71.",
-    "title": "Americans will be able to renew their passports online",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "IBM scores $45M zinger from Zynga in patent wringer",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574388",
+    "id": "41578783",
     "rank": "72.",
-    "title": "Reading list for comprehensive examination in political theory [pdf]",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "How to Align Open Source and Enterprise Sales",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574383",
+    "id": "41578782",
     "rank": "73.",
-    "title": "OceanGate CEO crashed sub years before Titan implosion, whistleblower says",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "Capacity planning for more credible OKRs",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574353",
+    "id": "41578771",
     "rank": "74.",
-    "title": "Election has Big Tech 'at a crossroads' after slump in dealmaking",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "DynamoDB Single-Table Design with TypeScript",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574341",
+    "id": "41578752",
     "rank": "75.",
-    "title": "My secret life attending two universities at the same time",
-    "timestamp": "3 hours ago",
-    "elapsedTime": "3 hours"
+    "title": "PeerTube 6.3 Released",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574309",
+    "id": "41578729",
     "rank": "76.",
-    "title": "Ask HN: How would you go about landing your first client?",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Laid off software engineer narrates story tehind taking delivery job to survive",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574306",
+    "id": "41578706",
     "rank": "77.",
-    "title": "Ask HN: Have any good self-hacks for finding motivation to start projects?",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Your workspace is a tool. Use the right one for the job",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574299",
+    "id": "41578703",
     "rank": "78.",
-    "title": "Browser-in-Browser using just fetch and canvas from host browser",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Show HN: NuScenes autonomous driving dataset visualized with Rerun",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574174",
+    "id": "41578695",
     "rank": "79.",
-    "title": "Browser-in-Browser",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Ruby's Hidden Gems: Sorbet",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574166",
+    "id": "41578688",
     "rank": "80.",
-    "title": "Easy eliminate noise during EEG measurement",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Quantised Inertia: From Anomalies to New Physics",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574155",
+    "id": "41578682",
     "rank": "81.",
-    "title": "Why United chose SpaceX's Starlink to power its free Wi-Fi",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Use Strong Passwords",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574152",
+    "id": "41578667",
     "rank": "82.",
-    "title": "Common Knowledge and Aumann's Agreement Theorem (2015)",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "How to play Hostage Chess [video]",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574117",
+    "id": "41578666",
     "rank": "83.",
-    "title": "2024 Snap Partner Summit [video]",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Did ChatGPT just message me First?",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574105",
+    "id": "41578651",
     "rank": "84.",
-    "title": "Mainchan App Reddit Alternative",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "GiveWell as Moneyball",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574081",
+    "id": "41578649",
     "rank": "85.",
-    "title": "A video by Android: Apple Is Starting to GetTheMessage",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Lego Mangle Rack Clock (2022) [video]",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574065",
+    "id": "41578647",
     "rank": "86.",
-    "title": "Snap Announces New AR Glasses Powered by Snap OS",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Stanford remote work conference will be held in person",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574050",
+    "id": "41578640",
     "rank": "87.",
-    "title": "Ask HN: Help me restore the LCD displays on classic samplers so I can use them",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "How a hydraulic simulation changed economic history",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574034",
+    "id": "41578638",
     "rank": "88.",
-    "title": "Common pitfalls with Docker networking and how to firewall",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "TikTok Whistleblower Claims Chinese Police Kidnapped His Father",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574027",
+    "id": "41578637",
     "rank": "89.",
-    "title": "Don't Let Go (of compile-time knowledge)",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Bricked iPhone 16 Can Be Restored Wirelessly Using Another iPhone",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574024",
+    "id": "41578628",
     "rank": "90.",
-    "title": "The most important problems in AI",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Fed Officials Are Expected to Cut Rates",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574020",
+    "id": "41578624",
     "rank": "91.",
-    "title": "Drug Development Failure: How GLP-1 Development Was Abandoned in 1990",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Heatbot Launches Today on Uneed",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41574012",
+    "id": "41578621",
     "rank": "92.",
-    "title": "Made ProSim for Xcode Simulator – an app I wanted myself to ship faster",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Making shadow boards with a Raspberry Pi, Python, OpenCV (and a CNC router)",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573996",
+    "id": "41578619",
     "rank": "93.",
-    "title": "SE-0446: Nonescapable Types",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Tiny Tapeout VGA Playground",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573986",
+    "id": "41578617",
     "rank": "94.",
-    "title": "Zersetzung",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "End-to-End Encryption Coming for iPhone-to-Android RCS Messages",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573983",
+    "id": "41578600",
     "rank": "95.",
-    "title": "Technical Goals (2016)",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Random Matrix Theory in Machine Learning Tutorial",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573982",
+    "id": "41578599",
     "rank": "96.",
-    "title": "If the bottom falls out of AI market, what's job Plan B?",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "The Continued Trajectory of Idiocy in the Tech Industry",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573960",
+    "id": "41578595",
     "rank": "97.",
-    "title": "Another coding copilot raised 400M, without a product",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Show HN: I made an app to read bilingually but different from others",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573956",
+    "id": "41578585",
     "rank": "98.",
-    "title": "A.I. Pioneers Call for Protections Against 'Catastrophic Risks'",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Defeating Bluetooth Trackers – a new obfuscation technique",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573944",
+    "id": "41578568",
     "rank": "99.",
-    "title": "Misinformation poses a smaller threat to democracy than you might think",
-    "timestamp": "4 hours ago",
-    "elapsedTime": "4 hours"
+    "title": "Sakana, Strawberry, and Scary AI",
+    "timestamp": "1 hour ago"
   },
   {
-    "id": "41573881",
+    "id": "41578562",
     "rank": "100.",
-    "title": "Show HN: I Started a Podcast on How Companies Are Applying LLMs",
-    "timestamp": "5 hours ago",
-    "elapsedTime": "5 hours"
+    "title": "Israel needs a law to ban police from 'insulting the public'",
+    "timestamp": "1 hour ago"
   }
 ]

@@ -15,16 +15,6 @@ async function extractArticles(page) {
   return articles;
 }
 
-async function loadMoreArticles(page) {
-  const moreButton = page.locator('a.morelink');
-  if (await moreButton.isVisible()) {
-    await moreButton.click();
-    await page.waitForTimeout(2000);
-  } else {
-    throw new Error('Error: "More" button not found on the page.');
-  }
-}
-
 async function scrapeAndVerifyArticles(page) {
   let allArticles = [];
 

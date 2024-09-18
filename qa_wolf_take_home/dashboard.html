@@ -1,97 +1,130 @@
-<script>
-  // Function to display test results in the required format
-  function displayTestResults(testResults) {
-    const testResultsList = document.getElementById('testResultsList');
-    const testResultsLoading = document.getElementById('testResultsLoading');
-    testResultsList.innerHTML = ''; // Clear existing content
-    testResultsLoading.style.display = 'none'; // Hide loading message
-
-    if (testResults && testResults.length > 0) {
-      let lastTestName = '';
-
-      testResults.forEach(result => {
-        if (result.test !== lastTestName) {
-          // Add a separator for each new test group
-          const liTestName = document.createElement('li');
-          liTestName.innerHTML = `<strong>Test:</strong> ${result.test}`;
-          testResultsList.appendChild(liTestName);
-          lastTestName = result.test;
-        }
-
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <strong>Browser:</strong> ${result.browser} <br>
-          <strong>Status:</strong> ${result.status} <br>
-          <strong>Articles:</strong> ${result.articles !== undefined ? result.articles : 'N/A'} <br>
-          <strong>Page Load Time:</strong> ${result.performance && result.performance.pageLoadTime !== undefined ? result.performance.pageLoadTime + ' ms' : 'N/A'} <br>
-          <strong>Time to First Byte:</strong> ${result.performance && result.performance.timeToFirstByte !== undefined ? result.performance.timeToFirstByte + ' ms' : 'N/A'} <br>
-        `;
-        testResultsList.appendChild(li);
-      });
-    } else {
-      testResultsList.textContent = 'No test results found.';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scraped Articles and Test Results Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-  }
-
-  // Function to draw the performance chart, excluding tests without load time or first byte data
-  function drawPerformanceChart(testResults) {
-    const ctx = document.getElementById('performanceChart').getContext('2d');
-
-    // Filter out results that don't have valid performance data (page load and time to first byte)
-    const filteredResults = testResults.filter(result => {
-      const performance = result.performance;
-      return performance && performance.pageLoadTime !== undefined && performance.timeToFirstByte !== undefined;
-    });
-
-    // Extract chart data only for tests with valid performance data
-    const labels = filteredResults.map(result => `${result.test} (${result.browser})`);
-    const pageLoadTimes = filteredResults.map(result => result.performance.pageLoadTime);
-    const timeToFirstByte = filteredResults.map(result => result.performance.timeToFirstByte);
-
-    if (labels.length === 0) {
-      console.log('No valid performance data to display in chart.');
-      return;
+    h1, h2 {
+      color: #333;
     }
+    .loading {
+      color: gray;
+      font-style: italic;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    li {
+      margin-bottom: 10px;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Scraped Articles and Test Results Dashboard</h1>
 
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: 'Page Load Time (ms)',
-            data: pageLoadTimes,
-            backgroundColor: 'rgba(75, 192, 192, 0.6)',
-            borderWidth: 1
-          },
-          {
-            label: 'Time to First Byte (ms)',
-            data: timeToFirstByte,
-            backgroundColor: 'rgba(255, 99, 132, 0.6)',
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          y: { beginAtZero: true }
-        }
+  <!-- Display Scraped Articles -->
+  <h2>Scraped Articles</h2>
+  <p id="articleLoading" class="loading">Loading articles...</p>
+  <ul id="articleList"></ul>
+
+  <!-- Display Test Results -->
+  <h2>Test Results</h2>
+  <p id="testResultsLoading" class="loading">Loading test results...</p>
+  <ul id="testResultsList"></ul>
+
+  <script>
+    // Function to display articles
+    function displayArticles(articles) {
+      const articleList = document.getElementById('articleList');
+      const articleLoading = document.getElementById('articleLoading');
+      if (!articleList || !articleLoading) return;
+
+      articleList.innerHTML = ''; // Clear existing content
+      articleLoading.style.display = 'none'; // Hide loading message
+
+      if (articles && articles.length > 0) {
+        articles.forEach(article => {
+          const li = document.createElement('li');
+          li.textContent = `ID: ${article.id}, Rank: ${article.rank}, Title: ${article.title}, Timestamp: ${article.timestamp}`;
+          articleList.appendChild(li);
+        });
+      } else {
+        articleList.textContent = 'No articles found.';
       }
-    });
-  }
+    }
 
-  // Fetch the test results and display them
-  fetch('testResults.json')
-    .then(response => response.json())
-    .then(data => {
-      // Display test results in the list
-      displayTestResults(data);
+    // Function to display test results
+    function displayTestResults(testResults) {
+      const testResultsList = document.getElementById('testResultsList');
+      const testResultsLoading = document.getElementById('testResultsLoading');
+      if (!testResultsList || !testResultsLoading) return;
 
-      // Only draw the performance chart with tests that have valid performance data
-      drawPerformanceChart(data);
-    })
-    .catch(error => {
-      document.getElementById('testResultsLoading').textContent = 'Error loading test results.';
-      console.error('Error fetching test results:', error);
-    });
-</script>
+      testResultsList.innerHTML = ''; // Clear existing content
+      testResultsLoading.style.display = 'none'; // Hide loading message
+
+      if (testResults && testResults.length > 0) {
+        testResults.forEach(result => {
+          const li = document.createElement('li');
+          
+          const articleCount = Array.isArray(result.articles) ? result.articles.length : 'N/A';
+          const pageLoadTime = result.performance && result.performance.pageLoadTime !== undefined
+            ? result.performance.pageLoadTime + ' ms' 
+            : 'N/A';
+          const timeToFirstByte = result.performance && result.performance.timeToFirstByte !== undefined
+            ? result.performance.timeToFirstByte + ' ms' 
+            : 'N/A';
+
+          li.innerHTML = `
+            <strong>Test:</strong> ${result.test} <br>
+            <strong>Browser:</strong> ${result.browser} <br>
+            <strong>Status:</strong> ${result.status} <br>
+            <strong>Articles:</strong> ${articleCount} <br>
+            <strong>Page Load Time:</strong> ${pageLoadTime} <br>
+            <strong>Time to First Byte:</strong> ${timeToFirstByte} <br>
+            <strong>Error:</strong> ${result.error || 'None'}
+          `;
+          testResultsList.appendChild(li);
+        });
+      } else {
+        testResultsList.textContent = 'No test results found.';
+      }
+    }
+
+    // Fetch the scraped articles and display them
+    fetch('scraped-articles.json')
+      .then(response => response.json())
+      .then(data => {
+        displayArticles(data);
+      })
+      .catch(error => {
+        const articleLoading = document.getElementById('articleLoading');
+        if (articleLoading) {
+          articleLoading.textContent = 'Error loading articles.';
+        }
+        console.error('Error fetching articles:', error);
+      });
+
+    // Fetch the test results and display them
+    fetch('testResults.json')
+      .then(response => response.json())
+      .then(data => {
+        displayTestResults(data);
+      })
+      .catch(error => {
+        const testResultsLoading = document.getElementById('testResultsLoading');
+        if (testResultsLoading) {
+          testResultsLoading.textContent = 'Error loading test results.';
+        }
+        console.error('Error fetching test results:', error);
+      });
+  </script>
+</body>
+</html>

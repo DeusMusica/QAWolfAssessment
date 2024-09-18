@@ -18,7 +18,9 @@
   },
   "dependencies": {
     "axios": "^1.7.7",
+    "browser-sync": "^3.0.2",
     "dotenv": "^16.4.5",
+    "latest": "^0.2.0",
     "nodemailer": "^6.9.15",
     "open": "^10.1.0"
   }
