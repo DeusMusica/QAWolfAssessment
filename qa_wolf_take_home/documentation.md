@@ -1,200 +1,148 @@
 
-# QA Wolf Assessment Documentation
-
-## Overview
-
-This project automates the process of scraping articles from Hacker News using Playwright. It collects the latest 100 articles, gathers performance metrics, and stores both the article data and test results in JSON files. A custom dashboard is provided to visualize the results and performance data. Notifications about the test results are sent via email and Slack.
-
----
+# Project Documentation
 
 ## Table of Contents
+- [Introduction](#introduction)
+- [Setup Guide](#setup-guide)
+  - [1. Prerequisites](#1-prerequisites)
+  - [2. Project Installation](#2-project-installation)
+  - [3. Setting up Environment Variables](#3-setting-up-environment-variables)
+    - [3.1 How to Get an App Password for Gmail](#31-how-to-get-an-app-password-for-gmail)
+    - [3.2 How to Set up a Slack Webhook](#32-how-to-set-up-a-slack-webhook)
+  - [4. Running the Project](#4-running-the-project)
+    - [Option 1: Running Files Individually](#option-1-running-files-individually)
+    - [Option 2: Using runner.js for Automation](#option-2-using-runnerjs-for-automation)
+  - [5. Running Individual Tests](#5-running-individual-tests)
+  - [6. Handling CAPTCHA Test Timeout](#6-handling-captcha-test-timeout)
+- [Technical Overview](#technical-overview)
+  - [1. Scraping Hacker News Articles](#1-scraping-hacker-news-articles)
+  - [2. Automated Tests](#2-automated-tests)
+  - [3. Notifications](#3-notifications)
+  - [4. Dashboard](#4-dashboard)
+  - [5. Trace Files](#5-trace-files)
+- [Conclusion](#conclusion)
 
-1. [Structure Overview](#structure-overview)
-2. [Core Components](#core-components)
-   1. [Playwright Test File](#playwright-test-file)
-   2. [Custom Dashboard](#custom-dashboard)
-   3. [Runner Script](#runner-script)
-   4. [Global Teardown](#global-teardown)
-   5. [Scraper Script](#scraper-script)
-3. [Use Cases](#use-cases)
-4. [Scalability Considerations](#scalability-considerations)
-5. [Possible Improvements](#possible-improvements)
+## Introduction
+This project is designed to scrape articles from Hacker News, run various automated tests using Playwright, capture performance metrics, and send notifications via email and Slack. It provides flexibility in running tests either individually or by using a single runner script. The project also includes a dashboard for viewing test results, performance data, and downloading trace files.
 
----
+## Setup Guide
 
-## Structure Overview
-
-This project consists of several core scripts that work together to scrape articles, run tests, display results on a dashboard, and notify the team of test outcomes.
-
-- **Playwright Test File**: Defines the web scraping logic and performance testing using Playwright.
-- **Custom Dashboard**: A dashboard to display scraped articles and test results.
-- **Runner Script**: Automates the process of running tests, storing results, and launching the dashboard.
-- **Global Teardown**: Handles email and Slack notifications after tests are complete.
-- **Scraper Script**: A standalone script to scrape the latest 100 articles from Hacker News and store them in a JSON file.
-
----
-
-## Core Components
-
-### Playwright Test File
-
-This file handles the core web scraping and test automation using Playwright. It contains helper functions to extract article data, load more articles, and verify the correct number of articles scraped.
-
-\```javascript
-import { test, expect } from '@playwright/test';
-import fs from 'fs';
-
-// Function to scrape 100 articles from Hacker News
-async function scrapeAndVerifyArticles(page) { /* ... */ }
-
-// Basic scraping test
-test('Basic Scraping Test: Scrape and verify 100 articles', async ({ page }, testInfo) => { /* ... */ });
-
-// After each test, store results in a JSON file
-test.afterEach(async ({}, testInfo) => { /* ... */ });
-\```
-
-- **Tests**: There are multiple tests to ensure 100 articles are scraped correctly and performance metrics are gathered.
-- **Performance Monitoring**: Logs key metrics like page load time and time to first byte.
-- **Data Storage**: Test results, including the number of articles and performance data, are saved to a JSON file.
-
-### Custom Dashboard
-
-This HTML-based dashboard displays the scraped articles and test results. It includes a performance monitoring chart to visualize key performance metrics using Chart.js.
-
-\```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scraped Articles and Test Results Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
-  <h1>Scraped Articles and Test Results Dashboard</h1>
-  <ul id="articleList"></ul>
-  <ul id="testResultsList"></ul>
-  <canvas id="performanceChart"></canvas>
-  <script> /* JavaScript to fetch and display data */ </script>
-</body>
-</html>
-\```
-
-- **Display**: Shows a list of scraped articles and test results.
-- **Performance Chart**: Visualizes the page load time and time to first byte using a bar chart.
-- **Data Source**: Fetches data from `scraped-articles.json` and `testResults.json`.
-
-### Runner Script
-
-This script automates the process of running the Playwright tests, saving the results, and launching the dashboard.
-
-\```javascript
-import { exec } from 'child_process';
-import open from 'open';
-import fs from 'fs';
-
-// Function to run tests and output results
-async function runTests() { /* ... */ }
-
-// Function to start the local dashboard server
-async function startDashboard() { /* ... */ }
-
-// Main function to run tests and open the dashboard
-async function main() {
-  await runTests();
-  await startDashboard();
-}
-main();
-\```
-
-- **Automated Test Execution**: Runs the Playwright tests and outputs progress.
-- **Local Server**: Starts an HTTP server to serve the dashboard and opens it in the default browser.
-
-### Global Teardown
-
-This script reads the test results from the `testResults.json` file and sends notifications via email and Slack using `nodemailer` and `axios`.
-
-\```javascript
-import nodemailer from 'nodemailer';
-import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
-
-// Send test results via email
-async function sendEmailNotification(summary) { /* ... */ }
-
-// Send test results via Slack
-async function sendSlackNotification(summary) { /* ... */ }
-
-// Global teardown to send notifications
-async function globalTeardown() { /* ... */ }
-export default globalTeardown;
-\```
-
-- **Email Notifications**: Sends the test results summary via email using the Gmail service.
-- **Slack Notifications**: Sends the test results summary to a configured Slack channel.
-- **Grouped Results**: Test results are grouped by test name in the summary.
-
-### Scraper Script
-
-This standalone script uses Playwright to scrape the latest 100 articles from Hacker News, processes the relative timestamps, and saves the data to a JSON file.
-
-\```javascript
-import { chromium } from 'playwright';
-import fs from 'fs';
-
-// Function to extract article data and handle pagination
-async function collectAndValidateArticles() { /* ... */ }
-
-// Run the script
-(async () => {
-  await collectAndValidateArticles();
-})();
-\```
-
-- **Pagination Handling**: Automatically clicks the "More" button to load additional articles.
-- **Timestamp Conversion**: Converts relative times (e.g., '5 hours ago') to absolute elapsed times.
-- **JSON Output**: Saves the scraped article data in `scraped-articles.json`.
-
----
-
-## Use Cases
-
-- **Web Scraping for Data Analysis**: This project automates the scraping of news articles and stores them for analysis. It’s particularly useful for keeping track of trending articles on Hacker News.
+### 1. Prerequisites
+Before you can set up and run the project, ensure that the following are installed on your machine:
+- **Node.js** (v14 or higher)
+- **npm** (Node Package Manager)
+- **Playwright** (installed as part of the project)
   
-- **Test Automation with Performance Monitoring**: The Playwright tests not only scrape data but also log performance metrics, helping you monitor how well web pages load and perform over time.
+To verify if Node.js and npm are installed, you can run the following commands:
+```bash
+node -v
+npm -v
+```
 
-- **Custom Dashboard for Monitoring**: The dashboard provides an easy way to view scraped data and test results, with a performance chart for key metrics.
+### 2. Project Installation
+Once the prerequisites are set up, follow these steps to install the project dependencies:
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd <project-directory>
+   ```
+3. Install all required npm packages:
+   ```bash
+   npm install
+   ```
 
-- **Automated Notifications**: Email and Slack notifications ensure that test results and performance data are distributed to the relevant team members automatically.
+### 3. Setting up Environment Variables
+This project requires a `.env` file to securely store sensitive credentials such as your Gmail credentials and Slack Webhook URL. Here’s how to create the `.env` file:
 
----
+1. In the root of your project directory, create a new file called `.env`.
+2. Add the following environment variables to the file:
+   ```bash
+   EMAIL_USER=your-email@gmail.com
+   EMAIL_PASS=your-app-password
+   SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/slack/webhook/url
+   ```
 
-## Scalability Considerations
+#### 3.1 How to Get an App Password for Gmail
+Follow these steps to generate an app password for Gmail:
+1. Visit [Google App Passwords](https://myaccount.google.com/apppasswords).
+2. Under **Select the app**, choose "Mail" and select "Other (Custom name)".
+3. Name it something like `Playwright Test Notifications`.
+4. Click **Generate** and copy the password. This will be your `EMAIL_PASS`.
 
-- **Increased Scraping Capacity**: You can easily modify the scraper to collect more than 100 articles or to scrape from multiple sources by adjusting the logic in `collectAndValidateArticles`.
+#### 3.2 How to Set up a Slack Webhook
+1. Go to your Slack workspace and navigate to **Settings & administration** > **Manage apps**.
+2. Search for **Incoming Webhooks** and install the app.
+3. Create a new webhook for your channel.
+4. Copy the URL provided and add it to your `.env` file as `SLACK_WEBHOOK_URL`.
 
-- **Parallel Execution**: The tests can be expanded to run in parallel across multiple browsers and environments using Playwright’s parallel test execution features.
+### 4. Running the Project
 
-- **Data Storage**: As the number of articles and test results grows, consider switching from JSON file storage to a more scalable solution like a database (e.g., MongoDB).
+#### Option 1: Running Files Individually
+1. **Run the scraper to collect articles:**
+   ```bash
+   node index.js
+   ```
+   This will scrape 100 articles from Hacker News and store them in `scraped-articles.json`.
 
-- **Advanced Performance Monitoring**: Additional metrics such as network request counts or memory usage could be tracked and visualized on the dashboard.
+2. **Run Playwright tests:**
+   ```bash
+   npx playwright test
+   ```
+   This will run all the tests, including performance monitoring, link validation, and API tests. The results will be stored in `testResults.json`.
 
----
+3. **Start the HTTP server to view the dashboard:**
+   ```bash
+   npx http-server -p 8080
+   ```
+   Open the browser and navigate to `http://localhost:8080` to view the dashboard.
 
-## Possible Improvements
+#### Option 2: Using runner.js for Automation
+Run the following command:
+```bash
+node runner.js
+```
 
-1. **Improved Error Handling**: Enhance error handling across the scraping and test automation scripts, particularly in cases where pages fail to load or elements are missing.
-   
-2. **Pagination Enhancements**: For larger-scale scraping, introduce more sophisticated pagination techniques to handle infinite scrolling or dynamically loaded content.
+### 5. Running Individual Tests
+You can also run specific tests directly using Playwright:
+```bash
+npx playwright test <test-file> --project=<browser>
+```
 
-3. **Expanded Metrics Tracking**: Add more detailed performance metrics, such as CPU usage or memory consumption, to better understand the resource impact of the scraping process.
+### 6. Handling CAPTCHA Test Timeout
+One of the tests simulates login validation with a mocked CAPTCHA. If CAPTCHA persists, you may need to increase the test timeout:
+```js
+test.setTimeout(60000); // 60 seconds timeout
+```
 
-4. **Database Integration**: For larger-scale scraping projects, consider integrating a database to store articles and test results instead of relying on JSON files.
+## Technical Overview
 
-5. **Dynamic Dashboard Updates**: Implement live data updates on the dashboard, so new articles or test results are displayed without requiring a page refresh.
+### 1. Scraping Hacker News Articles
+The script (`index.js`) uses Playwright to scrape articles from Hacker News. It gathers the article’s rank, title, and timestamp, then writes the first 100 articles to a `scraped-articles.json` file.
 
----
+### 2. Automated Tests
+Playwright tests are included in `hackernews.playwright.test.js`, covering:
+- **Basic Scraping Test**
+- **Link Click Validation**
+- **Login Validation with Mocked CAPTCHA**
+- **Performance Monitoring**
 
-This documentation provides a detailed explanation of how the project components work together and includes considerations for future scalability and improvements. Each part of the system has been designed with extensibility and automation in mind, making it easy to adapt for larger-scale scraping and testing operations.
+### 3. Notifications
+Once the tests are completed, the `globalTeardown.js` script sends notifications via:
+- **Email** using Gmail SMTP.
+- **Slack** via the webhook URL provided.
+
+### 4. Dashboard
+The dashboard (`dashboard.html`) displays scraped articles, test results, and two charts for performance metrics.
+
+### 5. Trace Files
+Trace files are generated during the **Performance Monitoring** test. They can be opened using:
+```bash
+npx playwright show-trace <trace-file-path>
+```
+Only one trace file can be open at a time.
+
+## Conclusion
+This project provides a robust framework for testing web pages, scraping data, and generating performance metrics. It can be run either step-by-step or automated via `runner.js`, with results presented in a user-friendly dashboard.

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +10,45 @@
       font-family: Arial, sans-serif;
       margin: 20px;
     }
-    h1, h2 {
+
+    h1,
+    h2 {
       color: #333;
     }
+
     .loading {
       color: gray;
       font-style: italic;
     }
+
     ul {
       padding-left: 20px;
     }
+
     li {
       margin-bottom: 10px;
     }
+
     .error {
       color: red;
     }
+
+    a {
+      text-decoration: none;
+      color: blue;
+    }
+
+    /* Style for the charts */
+    .chart-container {
+      width: 600px;
+      margin-top: 20px;
+    }
   </style>
+
+  <!-- Include Chart.js library from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
   <h1>Scraped Articles and Test Results Dashboard</h1>
 
@@ -40,12 +62,32 @@
   <p id="testResultsLoading" class="loading">Loading test results...</p>
   <ul id="testResultsList"></ul>
 
+  <!-- Download Playwright Trace -->
+  <h2>Download Playwright Trace</h2>
+  <div>
+    <a href="/trace-chromium.zip" download>Download Chromium Trace</a><br>
+    <a href="/trace-firefox.zip" download>Download Firefox Trace</a><br>
+    <a href="/trace-webkit.zip" download>Download Webkit Trace</a>
+  </div>
+
+  <!-- Chart for Performance Monitoring -->
+  <h2>Performance Monitoring: Page Load Time Comparison</h2>
+  <div class="chart-container">
+    <canvas id="performanceChart"></canvas>
+  </div>
+
+  <!-- Chart for Basic Scraping Test -->
+  <h2>Basic Scraping Test: Page Load Time Comparison</h2>
+  <div class="chart-container">
+    <canvas id="scrapingChart"></canvas>
+  </div>
+
   <script>
     // Function to display articles
     function displayArticles(articles) {
       const articleList = document.getElementById('articleList');
       const articleLoading = document.getElementById('articleLoading');
-      if (!articleList || !articleLoading) return;
+      if (!articleList || !articleLoading) return;  // Check if elements exist
 
       articleList.innerHTML = ''; // Clear existing content
       articleLoading.style.display = 'none'; // Hide loading message
@@ -61,41 +103,128 @@
       }
     }
 
-    // Function to display test results
+    // Function to display test results grouped by test name
     function displayTestResults(testResults) {
       const testResultsList = document.getElementById('testResultsList');
       const testResultsLoading = document.getElementById('testResultsLoading');
-      if (!testResultsList || !testResultsLoading) return;
+      if (!testResultsList || !testResultsLoading) return; // Check if elements exist
 
       testResultsList.innerHTML = ''; // Clear existing content
       testResultsLoading.style.display = 'none'; // Hide loading message
 
       if (testResults && testResults.length > 0) {
-        testResults.forEach(result => {
-          const li = document.createElement('li');
-          
-          const articleCount = Array.isArray(result.articles) ? result.articles.length : 'N/A';
-          const pageLoadTime = result.performance && result.performance.pageLoadTime !== undefined
-            ? result.performance.pageLoadTime + ' ms' 
-            : 'N/A';
-          const timeToFirstByte = result.performance && result.performance.timeToFirstByte !== undefined
-            ? result.performance.timeToFirstByte + ' ms' 
-            : 'N/A';
+        // Group the test results by the test name
+        const groupedResults = testResults.reduce((acc, result) => {
+          if (!acc[result.test]) {
+            acc[result.test] = [];
+          }
+          acc[result.test].push(result);
+          return acc;
+        }, {});
 
-          li.innerHTML = `
-            <strong>Test:</strong> ${result.test} <br>
-            <strong>Browser:</strong> ${result.browser} <br>
-            <strong>Status:</strong> ${result.status} <br>
-            <strong>Articles:</strong> ${articleCount} <br>
-            <strong>Page Load Time:</strong> ${pageLoadTime} <br>
-            <strong>Time to First Byte:</strong> ${timeToFirstByte} <br>
-            <strong>Error:</strong> ${result.error || 'None'}
-          `;
-          testResultsList.appendChild(li);
+        // Display grouped results
+        Object.keys(groupedResults).forEach(testName => {
+          const h3 = document.createElement('h3');
+          h3.textContent = `Test: ${testName}`;
+          testResultsList.appendChild(h3);
+
+          const ul = document.createElement('ul');
+          groupedResults[testName].forEach(result => {
+            const li = document.createElement('li');
+
+            // Handle display of articles, page load times, and TTFB metrics
+            const articleCount = Array.isArray(result.articles) ? result.articles.length : 'N/A';
+            const pageLoadTime = result.performance && result.performance.pageLoadTime ? result.performance.pageLoadTime : 'N/A';
+            const timeToFirstByte = result.performance && result.performance.ttfb ? result.performance.ttfb : 'N/A';
+
+            li.innerHTML = `
+              <strong>Browser:</strong> ${result.browser} <br>
+              <strong>Status:</strong> ${result.status} <br>
+              <strong>Articles:</strong> ${articleCount} <br>
+              <strong>Page Load Time:</strong> ${pageLoadTime} <br>
+              <strong>Time to First Byte:</strong> ${timeToFirstByte} <br>
+              <strong>Error:</strong> ${result.error || 'None'}
+            `;
+            ul.appendChild(li);
+          });
+          testResultsList.appendChild(ul);
         });
       } else {
         testResultsList.textContent = 'No test results found.';
       }
+    }
+
+    // Function to generate charts for performance data
+    function generateCharts(testResults) {
+      // Data for Performance Monitoring chart
+      const performanceData = testResults.filter(result => result.test === 'Performance Monitoring: Capture key metrics for Hacker News');
+      const performanceLabels = performanceData.map(result => result.browser);
+      const performancePageLoadTimes = performanceData.map(result => parseInt(result.performance.pageLoadTime, 10));
+      const performanceTTFBs = performanceData.map(result => parseInt(result.performance.ttfb, 10));
+
+      // Create Performance Monitoring Chart
+      const performanceChartCtx = document.getElementById('performanceChart').getContext('2d');
+      new Chart(performanceChartCtx, {
+        type: 'bar',
+        data: {
+          labels: performanceLabels,
+          datasets: [
+            {
+              label: 'Page Load Time (ms)',
+              backgroundColor: 'rgba(75, 192, 192, 0.2)',
+              borderColor: 'rgba(75, 192, 192, 1)',
+              borderWidth: 1,
+              data: performancePageLoadTimes
+            },
+            {
+              label: 'Time to First Byte (ms)',
+              backgroundColor: 'rgba(255, 159, 64, 0.2)',
+              borderColor: 'rgba(255, 159, 64, 1)',
+              borderWidth: 1,
+              data: performanceTTFBs
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Data for Basic Scraping Test chart
+      const scrapingData = testResults.filter(result => result.test === 'Basic Scraping Test: Scrape and verify 100 articles from Hacker News');
+      const scrapingLabels = scrapingData.map(result => result.browser);
+      const scrapingPageLoadTimes = scrapingData.map(result => parseInt(result.performance.pageLoadTime, 10));
+
+      // Create Basic Scraping Test Chart
+      const scrapingChartCtx = document.getElementById('scrapingChart').getContext('2d');
+      new Chart(scrapingChartCtx, {
+        type: 'bar',
+        data: {
+          labels: scrapingLabels,
+          datasets: [
+            {
+              label: 'Page Load Time (ms)',
+              backgroundColor: 'rgba(153, 102, 255, 0.2)',
+              borderColor: 'rgba(153, 102, 255, 1)',
+              borderWidth: 1,
+              data: scrapingPageLoadTimes
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
     }
 
     // Fetch the scraped articles and display them
@@ -107,7 +236,7 @@
       .catch(error => {
         const articleLoading = document.getElementById('articleLoading');
         if (articleLoading) {
-          articleLoading.textContent = 'Error loading articles.';
+          articleLoading.textContent = 'Error loading articles.';  // Only update if element exists
         }
         console.error('Error fetching articles:', error);
       });
@@ -117,14 +246,16 @@
       .then(response => response.json())
       .then(data => {
         displayTestResults(data);
+        generateCharts(data); // Generate charts after loading test results
       })
       .catch(error => {
         const testResultsLoading = document.getElementById('testResultsLoading');
         if (testResultsLoading) {
-          testResultsLoading.textContent = 'Error loading test results.';
+          testResultsLoading.textContent = 'Error loading test results.';  // Only update if element exists
         }
         console.error('Error fetching test results:', error);
       });
   </script>
 </body>
+
 </html>

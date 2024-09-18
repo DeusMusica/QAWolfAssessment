@@ -3,27 +3,32 @@ import nodemailer from 'nodemailer';
 import axios from 'axios';
 import dotenv from 'dotenv';
 
-dotenv.config(); // Load environment variables
+dotenv.config(); // Load environment variables from .env file
 
 // ------------------ Notification Functions ------------------
 
+/**
+ * Send an email notification with the test results summary.
+ * Utilizes Nodemailer with Gmail for sending emails.
+ */
 async function sendEmailNotification(summary) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER,  // Use environment variable for email
-      pass: process.env.EMAIL_PASS,  // Use environment variable for app password
+      user: process.env.EMAIL_USER,  // Sender's email (environment variable)
+      pass: process.env.EMAIL_PASS,  // App password (environment variable)
     },
   });
 
   const mailOptions = {
     from: process.env.EMAIL_USER,  // Sender's email address
-    to: process.env.EMAIL_USER,    // Recipient's email address
+    to: process.env.EMAIL_USER,    // Recipient (sending to self in this case)
     subject: 'Playwright Test Results Summary',
-    text: summary,
+    text: summary,  // Email content (test results summary)
   };
 
   try {
+    // Send the email notification
     await transporter.sendMail(mailOptions);
     console.log('Email notification sent successfully!');
   } catch (error) {
@@ -32,15 +37,21 @@ async function sendEmailNotification(summary) {
   }
 }
 
+/**
+ * Send a Slack notification with the test results summary.
+ * Uses a Slack Incoming Webhook URL for posting messages to a Slack channel.
+ */
 async function sendSlackNotification(summary) {
   const SLACK_WEBHOOK_URL = process.env.SLACK_WEBHOOK_URL;
 
+  // Ensure the webhook URL is available
   if (!SLACK_WEBHOOK_URL) {
     console.error('SLACK_WEBHOOK_URL is undefined or invalid');
     return;
   }
 
   try {
+    // Send the summary message to Slack
     await axios.post(SLACK_WEBHOOK_URL, {
       text: summary,  // Message content for Slack
     });
@@ -53,12 +64,10 @@ async function sendSlackNotification(summary) {
 // ------------------ Helper Functions ------------------
 
 /**
- * Convert articles array to a readable string format for notifications.
+ * Group test results by the test name to simplify result aggregation.
+ * @param {Array} testResults - Array of test result objects.
+ * @returns {Object} Grouped test results by test name.
  */
-function formatArticles(articles) {
-  return `Total Articles Scraped: ${articles.length}`;
-}
-
 function groupTestResults(testResults) {
   const groupedResults = {};
 
@@ -72,6 +81,12 @@ function groupTestResults(testResults) {
   return groupedResults;
 }
 
+/**
+ * Generate a formatted summary of test results, grouped by test name.
+ * Includes performance metrics and article count where applicable.
+ * @param {Object} groupedResults - Test results grouped by test name.
+ * @returns {string} Formatted summary of the test results.
+ */
 function generateSummary(groupedResults) {
   let summary = 'Test Results Summary by Test:\n\n';
 
@@ -88,9 +103,10 @@ function generateSummary(groupedResults) {
         summary += '  Articles: N/A\n';
       }
 
+      // Display performance metrics if available
       if (result.performance) {
         const pageLoadTime = result.performance.pageLoadTime !== undefined ? result.performance.pageLoadTime : 'N/A';
-        const timeToFirstByte = result.performance.timeToFirstByte !== undefined ? result.performance.timeToFirstByte : 'N/A';
+        const timeToFirstByte = result.performance.ttfb !== undefined ? result.performance.ttfb : 'N/A';
         summary += `  Page Load Time: ${pageLoadTime} ms\n`;
         summary += `  Time to First Byte (TTFB): ${timeToFirstByte} ms\n`;
       } else {
@@ -107,6 +123,10 @@ function generateSummary(groupedResults) {
 
 // ------------------ Global Teardown ------------------
 
+/**
+ * Global teardown function to send notifications after the test suite completes.
+ * Reads the test results, generates a summary, and sends email/Slack notifications.
+ */
 async function globalTeardown() {
   try {
     // Read test results from JSON file
@@ -122,7 +142,7 @@ async function globalTeardown() {
     // Send email and Slack notifications concurrently
     await Promise.all([
       sendEmailNotification(summary),
-      sendSlackNotification(summary)
+      sendSlackNotification(summary),
     ]);
 
   } catch (error) {
