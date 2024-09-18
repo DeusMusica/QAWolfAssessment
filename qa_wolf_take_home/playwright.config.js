@@ -24,7 +24,7 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  globalTeardown: resolve('./qa_wolf_take_home/globalTeardown.js'),
+  globalTeardown: resolve('./globalTeardown.js'),
   reporter: [
     ['list'],  // Console reporter
     ['html', { outputFolder: 'playwright-report'}]
