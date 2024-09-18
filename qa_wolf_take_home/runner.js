@@ -1,106 +1,77 @@
-import { exec } from 'child_process';
-import open from 'open';  // For opening the dashboard in the browser
-import fs from 'fs';
+import { spawn } from 'child_process';
+import { existsSync } from 'fs';
+import path from 'path';
+import { platform } from 'os';
 
-// ------------------ Helper Functions ------------------
+// Path to your existing `dashboard.html` file
+const htmlFilePath = path.resolve('dashboard.html');
 
-/**
- * Function to execute Playwright tests with styled output.
- * Uses the 'dot' reporter to show test progress.
- */
-async function runTests() {
+// Function to run commands and spawn child processes
+function runCommand(command, args, description) {
   return new Promise((resolve, reject) => {
-    // Execute Playwright tests using npx with the 'dot' reporter for minimal styled output
-    const process = exec('npx playwright test --reporter=dot', (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error running tests: ${error}`);
-        reject(error);
+    console.log(`Running: ${description}`);
+    const cmd = spawn(command, args, { stdio: 'inherit' });
+
+    cmd.on('error', (err) => {
+      console.error(`Failed to run ${description}:`, err);
+      reject(err);
+    });
+
+    cmd.on('close', (code) => {
+      if (code !== 0) {
+        console.error(`${description} exited with code ${code}`);
+        reject(new Error(`${description} exited with code ${code}`));
       } else {
-        console.log('Test run complete');
+        console.log(`${description} completed successfully.`);
         resolve();
       }
-    });
-
-    // Output the test progress in real-time
-    process.stdout.on('data', data => {
-      console.log(data);  // Display 'dot' style test progress
-    });
-
-    process.stderr.on('data', data => {
-      console.error(`Error: ${data}`);
     });
   });
 }
 
-/**
- * Function to start a local HTTP server and open the dashboard.
- */
-async function startDashboard() {
-  return new Promise((resolve, reject) => {
-    // Start an HTTP server to serve the dashboard.html
-    const serverProcess = exec('npx http-server -p 8080', (error, stdout, stderr) => {
-      if (error) {
-        console.error(`Error starting server: ${error}`);
-        reject(error);
-      } else {
-        console.log('Server started on http://localhost:8080/dashboard.html');
-        resolve();
-      }
-    });
+// Function to start the HTTP server
+function startServer() {
+  // Ensure the dashboard.html file exists before starting the server
+  if (!existsSync(htmlFilePath)) {
+    console.error(`Dashboard file not found at: ${htmlFilePath}`);
+    process.exit(1);
+  }
 
-    // Open the dashboard in the default browser
-    open('http://localhost:8080/dashboard.html').catch(err => {
-      console.error(`Error opening the dashboard: ${err}`);
-    });
+  // Get the path to npx based on the OS platform
+  const npxCommand = platform() === 'win32' ? 'npx.cmd' : 'npx';
+
+  // Use the correct command for `npx` to dynamically run `http-server`
+  const serverProcess = spawn(npxCommand, ['http-server', '-p', '8080'], { stdio: 'inherit' });
+
+  serverProcess.on('error', (err) => {
+    console.error('Failed to start the server:', err);
   });
-}
 
-/**
- * Function to collect and store test results to a JSON file.
- */
-async function storeTestResults() {
-  const resultsFilePath = 'testResults.json';
-  
-  if (fs.existsSync(resultsFilePath)) {
-    try {
-      // Read and parse the test results from the JSON file
-      const data = fs.readFileSync(resultsFilePath, 'utf8');
-      const testResults = JSON.parse(data);
-
-      // Handle performance data warnings
-      testResults.forEach(result => {
-        if (!result.performance) {
-          console.warn(`Missing performance data for test: ${result.test}`);
-        }
-      });
-
-    } catch (error) {
-      console.error('Error reading or parsing test results:', error);
+  serverProcess.on('close', (code) => {
+    if (code !== 0) {
+      console.error(`Server process exited with code ${code}`);
     }
-  } else {
-    console.error('Test results file not found.');
-  }
+  });
 }
 
-// ------------------ Main Execution Flow ------------------
-
-/**
- * Main function to run tests, store results, and start the dashboard.
- */
-async function main() {
+// Main runner function to execute all steps
+async function run() {
   try {
-    // Step 1: Run Playwright tests with styled output
-    await runTests();
+    console.log('Step 1: Running index.js to scrape articles.');
+    await runCommand('node', ['index.js'], 'Article Scraper (index.js)');
 
-    // Step 2: Store the test results
-    await storeTestResults();
+    console.log('Step 2: Running Playwright tests to update testResults.json.');
 
-    // Step 3: Start the dashboard server
-    await startDashboard();
+    // Use the full path to Playwright to avoid issues with npx
+    const playwrightPath = path.resolve('node_modules', '.bin', platform() === 'win32' ? 'playwright.cmd' : 'playwright');
+    await runCommand(playwrightPath, ['test'], 'Playwright Tests');
+
+    console.log('Step 3: Starting HTTP server to display dashboard.');
+    startServer();
   } catch (error) {
-    console.error('Error in runner script:', error);
+    console.error('Error during runner execution:', error);
   }
 }
 
-// Run the main function
-main();
+// Execute the runner
+run();

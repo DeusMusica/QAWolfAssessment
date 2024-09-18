@@ -6,11 +6,12 @@ import fs from 'fs';
  * @param {object} page - The Playwright page object.
  */
 async function loadAdditionalArticles(page) {
-  const moreButton = await page.$('a.morelink');
-  if (moreButton) {
+  const moreButton = page.locator('a.morelink');  // Updated to use `locator()`
+  if (await moreButton.isVisible()) {
     await moreButton.click();
-    // Wait for the "More" button to be attached again (next page load)
     await page.waitForSelector('a.morelink', { state: 'attached' });
+  } else {
+    throw new Error('Error: "More" button not found.');
   }
 }
 
@@ -23,7 +24,7 @@ async function getArticleData(page) {
   return await page.evaluate(() => {
     const articles = Array.from(document.querySelectorAll('.athing'));
     return articles.map(article => {
-      const id = article.getAttribute('id'); // Article ID
+      const id = article.getAttribute('id');
       const rank = article.querySelector('.rank')?.innerText || 'No rank';
       const titleElement = article.querySelector('.titleline a');
       const title = titleElement ? titleElement.innerText : 'No title';
@@ -31,7 +32,7 @@ async function getArticleData(page) {
       const timestamp = timeElement ? timeElement.innerText : 'No timestamp';
 
       return { id, rank, title, timestamp };
-    }).filter(article => article.timestamp !== 'No timestamp'); // Filter out articles with no timestamp
+    }).filter(article => article.timestamp !== 'No timestamp');
   });
 }
 
@@ -112,7 +113,60 @@ async function collectAndValidateArticles() {
   await browser.close();
 }
 
+/**
+ * Test: Validate Clicking the First Article Link
+ */
+async function validateClickingArticle() {
+  const browser = await chromium.launch({ headless: false });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  await page.goto('https://news.ycombinator.com/newest');
+  
+  // Click on the first article link
+  const firstArticleLink = page.locator('.athing .titleline a').first();
+  const expectedUrl = await firstArticleLink.getAttribute('href');
+
+  await firstArticleLink.click();
+  await page.waitForLoadState('networkidle');
+
+  if (page.url().includes(expectedUrl)) {
+    console.log('Link Click Validation Passed.');
+  } else {
+    console.error('Link Click Validation Failed.');
+  }
+
+  await browser.close();
+}
+
+/**
+ * Test: Login Validation with Incorrect Credentials
+ */
+async function validateLogin() {
+  const browser = await chromium.launch({ headless: false });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  await page.goto('https://news.ycombinator.com/login');
+
+  // Enter invalid credentials
+  await page.fill('input[name="acct"]', 'invalidUser');
+  await page.fill('input[name="pw"]', 'invalidPassword');
+  await page.click('input[type="submit"]');
+
+  const errorMessage = await page.textContent('body');
+  if (errorMessage.includes('Bad login.')) {
+    console.log('Login Validation Passed: Invalid credentials.');
+  } else {
+    console.error('Login Validation Failed.');
+  }
+
+  await browser.close();
+}
+
 // Run the script to collect articles
 (async () => {
   await collectAndValidateArticles();
+  await validateClickingArticle();
+  await validateLogin();
 })();

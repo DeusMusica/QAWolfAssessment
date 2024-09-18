@@ -5,7 +5,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:all": "node runner.js"
+    "start-dashboard": "node runner.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,7 @@
   "devDependencies": {
     "@playwright/test": "^1.47.1",
     "@types/node": "^20.8.9",
+    "http-server": "^14.1.1",
     "playwright": "^1.47.1"
   },
   "dependencies": {
