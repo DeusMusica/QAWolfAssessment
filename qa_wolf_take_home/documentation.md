@@ -6,7 +6,7 @@
 - [Setup Guide](#setup-guide)
   - [1. Prerequisites](#1-prerequisites)
   - [2. Project Installation](#2-project-installation)
-  - [3. Setting up Environment Variables](#3-setting-up-environment-variables)
+  - [3. Setting up Environment Variables (Optional)](#3-setting-up-environment-variables-optional)
     - [3.1 How to Get an App Password for Gmail](#31-how-to-get-an-app-password-for-gmail)
     - [3.2 How to Set up a Slack Webhook](#32-how-to-set-up-a-slack-webhook)
   - [4. Running the Project](#4-running-the-project)
@@ -54,8 +54,10 @@ Once the prerequisites are set up, follow these steps to install the project dep
    npm install
    ```
 
-### 3. Setting up Environment Variables
-This project requires a `.env` file to securely store sensitive credentials such as your Gmail credentials and Slack Webhook URL. Here’s how to create the `.env` file:
+### 3. Setting up Environment Variables (Optional)
+This project includes a flag to enable or disable notifications, which allows it to be run without setting up environment variables. To run the project without notifications, simply skip setting up the `.env` file. Notifications will be disabled by default unless you explicitly enable them.
+
+If you choose to enable notifications (email and Slack), follow these steps to create the `.env` file:
 
 1. In the root of your project directory, create a new file called `.env`.
 2. Add the following environment variables to the file:
@@ -63,7 +65,10 @@ This project requires a `.env` file to securely store sensitive credentials such
    EMAIL_USER=your-email@gmail.com
    EMAIL_PASS=your-app-password
    SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/slack/webhook/url
+   SEND_NOTIFICATIONS=true
    ```
+
+If the `.env` file or the `SEND_NOTIFICATIONS` variable is missing, notifications will be automatically disabled.
 
 #### 3.1 How to Get an App Password for Gmail
 Follow these steps to generate an app password for Gmail:
@@ -130,7 +135,7 @@ Playwright tests are included in `hackernews.playwright.test.js`, covering:
 - **Performance Monitoring**
 
 ### 3. Notifications
-Once the tests are completed, the `globalTeardown.js` script sends notifications via:
+Notifications can be sent via email and Slack depending on the `SEND_NOTIFICATIONS` flag. If the flag is set to `true` and environment variables are provided, notifications will be sent via:
 - **Email** using Gmail SMTP.
 - **Slack** via the webhook URL provided.
 
