@@ -96,7 +96,7 @@ Follow these steps to generate an app password for Gmail:
    ```bash
    npx playwright test
    ```
-   This will run all the tests, including performance monitoring, link validation, and API tests. The results will be stored in `testResults.json`.
+   This will run all the tests, including performance monitoring, link validation, login validation with CAPTCHA, and API tests. The results, including performance metrics like page load time and time to first byte, will be stored in `testResults.json`.
 
 3. **Start the HTTP server to view the dashboard:**
    ```bash
@@ -129,10 +129,10 @@ The script (`index.js`) uses Playwright to scrape articles from Hacker News. It 
 
 ### 2. Automated Tests
 Playwright tests are included in `hackernews.playwright.test.js`, covering:
-- **Basic Scraping Test**
-- **Link Click Validation**
-- **Login Validation with Mocked CAPTCHA**
-- **Performance Monitoring**
+- **Basic Scraping Test**: This test scrapes 100 articles from Hacker News and verifies the article details. Additionally, it captures performance metrics such as **page load time** and **time to first byte** for the page.
+- **Link Click Validation**: This test validates that the first article link on the Hacker News homepage can be clicked and navigates to the expected URL.
+- **Login Validation with Mocked CAPTCHA**: This test simulates the login process with invalid credentials while mocking the CAPTCHA validation. It verifies that invalid login attempts return appropriate error messages.
+- **Performance Monitoring**: This test captures key performance metrics like **Time to First Byte (TTFB)** and **Page Load Time** while visiting the Hacker News "Newest" page. The test generates a trace file for further analysis.
 
 ### 3. Notifications
 Notifications can be sent via email and Slack depending on the `SEND_NOTIFICATIONS` flag. If the flag is set to `true` and environment variables are provided, notifications will be sent via:
@@ -140,7 +140,7 @@ Notifications can be sent via email and Slack depending on the `SEND_NOTIFICATIO
 - **Slack** via the webhook URL provided.
 
 ### 4. Dashboard
-The dashboard (`dashboard.html`) displays scraped articles, test results, and two charts for performance metrics.
+The dashboard (`dashboard.html`) displays scraped articles, test results, and two charts for performance metrics, including **page load time** and **time to first byte** captured during the **Basic Scraping Test** and **Performance Monitoring** test.
 
 ### 5. Trace Files
 Trace files are generated during the **Performance Monitoring** test. They can be opened using:
