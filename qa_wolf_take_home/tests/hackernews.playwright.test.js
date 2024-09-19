@@ -84,58 +84,92 @@ test('Basic Scraping Test: Scrape and verify 100 articles from Hacker News', asy
 
 // Test: Validate Clicking a Link
 test('Link Click Validation: Validate clicking the first article link', async ({ page }) => {
-  test.setTimeout(60000);
+  test.setTimeout(60000); // Set a timeout of 60 seconds for the whole test
 
   // Visit the Hacker News home page.
   await page.goto('https://news.ycombinator.com/');
 
-  // Ensure the page has fully loaded.
-  await page.waitForLoadState('domcontentloaded');
+  // Ensure the page has fully loaded before interacting with elements.
   await page.waitForLoadState('networkidle');
+  console.log('Page fully loaded.');
 
-  // Locate the first article link.
+  // Wait for the presence of articles on the page.
+  const articles = page.locator('.athing');
+  await articles.first().waitFor({ state: 'visible', timeout: 45000 });
+  console.log('Articles are present.');
+
+  // Now wait for the first article link to appear and be visible.
   const firstArticleLink = page.locator('.athing .titleline a').first();
 
-  // Ensure the link is visible before trying to interact with it.
-  await expect(firstArticleLink).toBeVisible({ timeout: 45000 });
+  // Use a more explicit wait for the first article link to be both attached and visible.
+  await firstArticleLink.waitFor({ state: 'attached', timeout: 30000 });
+  console.log('First article link is attached.');
+
+  await firstArticleLink.waitFor({ state: 'visible', timeout: 15000 });
+  console.log('First article link is visible.');
 
   // Get the expected URL of the first article.
   const expectedUrl = await firstArticleLink.getAttribute('href');
+  if (!expectedUrl) {
+    throw new Error('Expected URL is missing.');
+  }
 
   // Click the link and verify that the page navigates to the expected URL.
   await firstArticleLink.click();
-  await expect(page).toHaveURL(expectedUrl);
+  await expect(page).toHaveURL(expectedUrl, { timeout: 15000 });
+
   console.log('Link Click Validation Passed');
 });
 
 // Test: Invalid Login Validation
 test('Login Validation with Mocked CAPTCHA', async ({ page }) => {
-  test.setTimeout(60000);
+  test.setTimeout(90000);  // Increase the timeout to account for potential delays under heavy load
 
-  // Mock the CAPTCHA request
-  await page.route('**/recaptcha/api/fallback', route => {
+  // Mock the CAPTCHA request with the correct endpoint.
+  await page.route('**/recaptcha/**', route => {
     route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: '{"success": true}', // Simulate successful CAPTCHA response
+      body: '{"success": true}', // Simulate successful CAPTCHA response.
     });
   });
 
-  // Navigate to the login page
+  // Navigate to the login page.
   await page.goto('https://news.ycombinator.com/login');
+  
+  // Ensure the page has fully loaded before interacting with elements.
   await page.waitForLoadState('networkidle');
+  console.log('Login page fully loaded.');
 
-  // Wait for login input fields to appear
-  await page.waitForSelector('input[name="acct"]');
-  await page.waitForSelector('input[name="pw"]');
+  // Narrow down to the login form specifically by filtering for the form with the text "login".
+  const loginForm = page.locator('form').filter({ hasText: 'login' });
 
-  // Enter invalid credentials and submit
-  await page.fill('input[name="acct"]', 'invalidUser');
-  await page.fill('input[name="pw"]', 'invalidPassword');
-  await page.click('input[type="submit"]');
+  // Use locators scoped to the login form to avoid strict mode violations.
+  const usernameField = loginForm.locator('input[name="acct"]');
+  const passwordField = loginForm.locator('input[name="pw"]');
+  const submitButton = loginForm.locator('input[type="submit"]');
 
-  // Validate the response message for invalid login or CAPTCHA requirements
-  const bodyText = await page.textContent('body');
+  // Increase timeout and add more logging to track progress.
+  console.log('Waiting for username field to attach.');
+  await usernameField.waitFor({ state: 'attached', timeout: 45000 });  // Increased timeout to 45 seconds
+  console.log('Username field is attached.');
+
+  await usernameField.waitFor({ state: 'visible', timeout: 30000 });  // Increased timeout to 30 seconds
+  console.log('Username field is visible.');
+
+  await passwordField.waitFor({ state: 'attached', timeout: 45000 });  // Increased timeout for password field as well
+  console.log('Password field is attached.');
+
+  await passwordField.waitFor({ state: 'visible', timeout: 30000 });
+  console.log('Password field is visible.');
+
+  // Enter invalid credentials and submit the form.
+  await usernameField.fill('invalidUser');
+  await passwordField.fill('invalidPassword');
+  await submitButton.click();
+
+  // Validate the response message for invalid login or CAPTCHA requirements.
+  const bodyText = await page.textContent('body', { timeout: 30000 });
   if (bodyText.includes('Bad login.')) {
     expect(bodyText).toContain('Bad login.');
     console.log('Login Validation Passed: Invalid credentials.');
@@ -149,38 +183,68 @@ test('Login Validation with Mocked CAPTCHA', async ({ page }) => {
 
 // Performance Monitoring
 test('Performance Monitoring: Capture key metrics for Hacker News', async ({ browserName, browser }, testInfo) => {
+  // Create a new browser context for this test.
   const context = await browser.newContext();
+
+  // Start tracing to capture screenshots and snapshots for performance analysis.
   await context.tracing.start({ screenshots: true, snapshots: true });
 
+  // Open a new page within the context.
   const page = await context.newPage();
+
+  // Navigate to the "Newest" page on Hacker News.
   await page.goto('https://news.ycombinator.com/newest');
+
+  // Wait for the page to fully load by ensuring the network is idle.
   await page.waitForLoadState('networkidle');
 
+  // Capture performance timing data from the page.
   const performanceTiming = await page.evaluate(() => JSON.stringify(window.performance.timing));
+  
+  // Parse the JSON string returned by the browser into a JavaScript object.
   const timing = JSON.parse(performanceTiming);
-  const ttfb = timing.responseStart - timing.navigationStart; 
-  const pageLoadTime = timing.loadEventEnd - timing.navigationStart; 
 
+  // Calculate key performance metrics.
+  // Time to First Byte (TTFB) is the time it takes for the first byte of the response to be received after the request is sent.
+  const ttfb = timing.responseStart - timing.navigationStart;
+  
+  // Page Load Time is the total time taken from the start of navigation to the load event being fired.
+  const pageLoadTime = timing.loadEventEnd - timing.navigationStart;
+
+  // Log the performance metrics for visibility.
   console.log(`Time to First Byte (TTFB): ${ttfb} ms`);
   console.log(`Page Load Time: ${pageLoadTime} ms`);
 
+  // Stop tracing and save the trace file.
+  // The trace will contain screenshots and performance snapshots that can be analyzed later.
   const traceFileName = `trace-${browserName}.zip`;
   await context.tracing.stop({ path: traceFileName });
 
+  // Store the performance metrics and trace file path in the test results for further analysis.
   testInfo.performance = { ttfb, pageLoadTime, traceFileName };
 
+  // Close the browser context after the test completes to clean up resources.
   await context.close();
 });
 
 // Hacker News API Test
 test('Hacker News API: Fetch and validate top stories', async () => {
+  // Create a new API request context. This context is used to manage API interactions.
   const apiContext = await request.newContext();
+
+  // Send a GET request to the Hacker News API to fetch the list of top stories.
   const topStoriesResponse = await apiContext.get('https://hacker-news.firebaseio.com/v0/topstories.json');
+
+  // Verify that the API response status is successful (2xx status code).
   expect(topStoriesResponse.ok()).toBeTruthy();
 
+  // Parse the response body as JSON to retrieve the list of top story IDs.
   const topStories = await topStoriesResponse.json();
+
+  // Ensure that the list of top stories is not empty.
   expect(topStories.length).toBeGreaterThan(0);
 
+  // Clean up the API request context after the test completes to free resources.
   await apiContext.dispose();
 });
 

@@ -55,6 +55,15 @@ function runCommand(command, args, description) {
 }
 
 /**
+ * Introduce a delay between tasks.
+ * @param {number} ms - The number of milliseconds to delay.
+ * @returns {Promise<void>} A promise that resolves after the delay.
+ */
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
  * Opens the Playwright trace files for each browser using the `npx playwright show-trace` command.
  * Ensures that each trace file exists before attempting to open it.
  */
@@ -115,9 +124,15 @@ async function run() {
     console.log('Step 1: Running index.js to scrape articles.');
     await runCommand('node', ['index.js'], 'Article Scraper (index.js)');
 
+    // Add a short delay before running the tests
+    await delay(3000); // 3-second delay
+
     console.log('Step 2: Running Playwright tests to update testResults.json.');
     const playwrightPath = path.resolve('node_modules', '.bin', platform() === 'win32' ? 'playwright.cmd' : 'playwright');
     await runCommand(playwrightPath, ['test'], 'Playwright Tests');
+
+    // Add another delay before opening trace files
+    await delay(3000); // 3-second delay
 
     console.log('Step 3: Opening trace files.');
     await openTraceFiles();  // Open the Playwright trace files after the tests are complete
