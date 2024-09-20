@@ -85,6 +85,7 @@ async function openTraceFiles() {
 /**
  * Starts an HTTP server using `http-server` to serve the `dashboard.html` file.
  * Ensures that the `dashboard.html` file exists before starting the server.
+ * Opens a new Chrome window automatically to display the dashboard.
  */
 function startServer() {
   // Verify that the dashboard.html file exists
@@ -110,6 +111,35 @@ function startServer() {
       console.error(`Server process exited with code ${code}`);
     }
   });
+
+  // Once the server is ready, open the dashboard in a new Chrome window
+  serverProcess.on('spawn', () => {
+    console.log('Server started. Opening Chrome browser...');
+    openChromeBrowser('http://localhost:8080');  // Open the Chrome browser with the server URL
+  });
+}
+
+/**
+ * Opens the specified URL in a new Chrome browser window.
+ * Works across different operating systems (Windows, macOS, Linux).
+ * 
+ * @param {string} url - The URL to open in Chrome.
+ */
+function openChromeBrowser(url) {
+  const chromePaths = {
+    win32: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    darwin: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+    linux: 'google-chrome' // Assuming Chrome is in PATH on Linux
+  };
+
+  const chromeCommand = chromePaths[platform()];
+
+  if (chromeCommand && existsSync(chromeCommand)) {
+    // Use spawn to open Chrome with the given URL
+    spawn(chromeCommand, [url], { stdio: 'inherit' });
+  } else {
+    console.error('Chrome browser not found on this system.');
+  }
 }
 
 /**
@@ -117,7 +147,7 @@ function startServer() {
  * 1. Run the article scraper (index.js).
  * 2. Run the Playwright tests.
  * 3. Open the Playwright trace files.
- * 4. Start the HTTP server to display the dashboard.
+ * 4. Start the HTTP server to display the dashboard and open Chrome automatically.
  */
 async function run() {
   try {
@@ -137,8 +167,8 @@ async function run() {
     console.log('Step 3: Opening trace files.');
     await openTraceFiles();  // Open the Playwright trace files after the tests are complete
 
-    console.log('Step 4: Starting HTTP server to display dashboard.');
-    startServer();  // Start the HTTP server to serve the dashboard
+    console.log('Step 4: Starting HTTP server to display dashboard and opening Chrome.');
+    startServer();  // Start the HTTP server and automatically open the dashboard in Chrome
   } catch (error) {
     console.error('Error during runner execution:', error);
   }

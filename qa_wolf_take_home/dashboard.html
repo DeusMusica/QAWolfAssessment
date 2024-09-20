@@ -11,8 +11,7 @@
       margin: 20px;
     }
 
-    h1,
-    h2 {
+    h1, h2 {
       color: #333;
     }
 
@@ -45,53 +44,65 @@
     }
   </style>
 
-  <!-- Include Chart.js library from CDN -->
+  <!-- Include Chart.js library for generating charts -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
+  <!-- Main title of the dashboard -->
   <h1>Scraped Articles and Test Results Dashboard</h1>
 
-  <!-- Display Scraped Articles -->
+  <!-- Section for displaying scraped articles -->
   <h2>Scraped Articles</h2>
-  <p id="articleLoading" class="loading">Loading articles...</p>
-  <ul id="articleList"></ul>
+  <p id="articleLoading" class="loading">Loading articles...</p> <!-- Loading message while articles are fetched -->
+  <ul id="articleList"></ul> <!-- Container for displaying articles list -->
 
-  <!-- Display Test Results -->
+  <!-- Section for displaying test results -->
   <h2>Test Results</h2>
-  <p id="testResultsLoading" class="loading">Loading test results...</p>
-  <ul id="testResultsList"></ul>
+  <p id="testResultsLoading" class="loading">Loading test results...</p> <!-- Loading message while test results are fetched -->
+  <ul id="testResultsList"></ul> <!-- Container for displaying test results -->
 
-  <!-- Download Playwright Trace -->
+  <!-- Section for downloading Playwright trace files for each browser -->
   <h2>Download Playwright Trace</h2>
   <div>
     <a href="/trace-chromium.zip" download>Download Chromium Trace</a><br>
     <a href="/trace-firefox.zip" download>Download Firefox Trace</a><br>
     <a href="/trace-webkit.zip" download>Download Webkit Trace</a>
   </div>
-
-  <!-- Chart for Performance Monitoring -->
+  
+  <!-- Chart for comparing page load time across different browsers -->
   <h2>Performance Monitoring: Page Load Time Comparison</h2>
   <div class="chart-container">
     <canvas id="performanceChart"></canvas>
   </div>
-
-  <!-- Chart for Basic Scraping Test -->
+  
+  <!-- Chart for comparing Basic Scraping Test's page load time across browsers -->
   <h2>Basic Scraping Test: Page Load Time Comparison</h2>
   <div class="chart-container">
     <canvas id="scrapingChart"></canvas>
   </div>
 
+  <!-- New link to thank-you.html -->
+  <h2>Thank You</h2>
+  <div>
+    <a href="thank-you.html">Go to Thank You Page</a>
+  </div>
+
   <script>
-    // Function to display articles
+    /**
+     * Function to display a list of scraped articles on the dashboard.
+     * @param {Array} articles - Array of article objects.
+     */
     function displayArticles(articles) {
       const articleList = document.getElementById('articleList');
       const articleLoading = document.getElementById('articleLoading');
-      if (!articleList || !articleLoading) return;  // Check if elements exist
+      if (!articleList || !articleLoading) return;  // Exit if elements are missing
 
-      articleList.innerHTML = ''; // Clear existing content
+      // Clear loading message and display articles
+      articleList.innerHTML = ''; // Clear any existing content
       articleLoading.style.display = 'none'; // Hide loading message
 
+      // Check if there are articles, if yes, display them
       if (articles && articles.length > 0) {
         articles.forEach(article => {
           const li = document.createElement('li');
@@ -103,17 +114,21 @@
       }
     }
 
-    // Function to display test results grouped by test name
+    /**
+     * Function to display test results on the dashboard, grouped by test name.
+     * @param {Array} testResults - Array of test result objects.
+     */
     function displayTestResults(testResults) {
       const testResultsList = document.getElementById('testResultsList');
       const testResultsLoading = document.getElementById('testResultsLoading');
-      if (!testResultsList || !testResultsLoading) return; // Check if elements exist
+      if (!testResultsList || !testResultsLoading) return; // Exit if elements are missing
 
-      testResultsList.innerHTML = ''; // Clear existing content
+      // Clear loading message and display test results
+      testResultsList.innerHTML = ''; // Clear any existing content
       testResultsLoading.style.display = 'none'; // Hide loading message
 
+      // Group test results by test name
       if (testResults && testResults.length > 0) {
-        // Group the test results by the test name
         const groupedResults = testResults.reduce((acc, result) => {
           if (!acc[result.test]) {
             acc[result.test] = [];
@@ -122,7 +137,7 @@
           return acc;
         }, {});
 
-        // Display grouped results
+        // Display grouped test results
         Object.keys(groupedResults).forEach(testName => {
           const h3 = document.createElement('h3');
           h3.textContent = `Test: ${testName}`;
@@ -132,13 +147,14 @@
           groupedResults[testName].forEach(result => {
             const li = document.createElement('li');
 
-            // Handle display of articles, page load times, and TTFB metrics
+            // Gather information about each result including performance and error data
             const articleCount = Array.isArray(result.articles) ? result.articles.length : 'N/A';
             const pageLoadTime = result.performance && result.performance.pageLoadTime ? result.performance.pageLoadTime : 'N/A';
             const timeToFirstByte = result.performance && result.performance.ttfb ? result.performance.ttfb : 'N/A';
 
+            // Display the test results with all relevant information
             li.innerHTML = `
-              <strong>Browser:</strong> ${result.browser} <br>
+              <strong>Browser:</strong> ${result.browser || 'N/A'} <br>
               <strong>Status:</strong> ${result.status} <br>
               <strong>Articles:</strong> ${articleCount} <br>
               <strong>Page Load Time:</strong> ${pageLoadTime} <br>
@@ -154,15 +170,18 @@
       }
     }
 
-    // Function to generate charts for performance data
+    /**
+     * Function to generate charts from performance data.
+     * @param {Array} testResults - Array of test result objects.
+     */
     function generateCharts(testResults) {
-      // Data for Performance Monitoring chart
+      // Filter for Performance Monitoring test results and extract relevant data
       const performanceData = testResults.filter(result => result.test === 'Performance Monitoring: Capture key metrics for Hacker News');
       const performanceLabels = performanceData.map(result => result.browser);
       const performancePageLoadTimes = performanceData.map(result => parseInt(result.performance.pageLoadTime, 10));
       const performanceTTFBs = performanceData.map(result => parseInt(result.performance.ttfb, 10));
 
-      // Create Performance Monitoring Chart
+      // Create the Performance Monitoring chart
       const performanceChartCtx = document.getElementById('performanceChart').getContext('2d');
       new Chart(performanceChartCtx, {
         type: 'bar',
@@ -195,12 +214,12 @@
         }
       });
 
-      // Data for Basic Scraping Test chart
+      // Filter for Basic Scraping Test results and extract page load time data
       const scrapingData = testResults.filter(result => result.test === 'Basic Scraping Test: Scrape and verify 100 articles from Hacker News');
       const scrapingLabels = scrapingData.map(result => result.browser);
       const scrapingPageLoadTimes = scrapingData.map(result => parseInt(result.performance.pageLoadTime, 10));
 
-      // Create Basic Scraping Test Chart
+      // Create the Basic Scraping Test chart
       const scrapingChartCtx = document.getElementById('scrapingChart').getContext('2d');
       new Chart(scrapingChartCtx, {
         type: 'bar',
@@ -227,7 +246,7 @@
       });
     }
 
-    // Fetch the scraped articles and display them
+    // Fetch the scraped articles from the server and display them
     fetch('scraped-articles.json')
       .then(response => response.json())
       .then(data => {
@@ -236,22 +255,22 @@
       .catch(error => {
         const articleLoading = document.getElementById('articleLoading');
         if (articleLoading) {
-          articleLoading.textContent = 'Error loading articles.';  // Only update if element exists
+          articleLoading.textContent = 'Error loading articles.';  // Display error if fetch fails
         }
         console.error('Error fetching articles:', error);
       });
 
-    // Fetch the test results and display them
+    // Fetch the test results from the server and display them
     fetch('testResults.json')
       .then(response => response.json())
       .then(data => {
-        displayTestResults(data);
+        displayTestResults(data); // Display test results
         generateCharts(data); // Generate charts after loading test results
       })
       .catch(error => {
         const testResultsLoading = document.getElementById('testResultsLoading');
         if (testResultsLoading) {
-          testResultsLoading.textContent = 'Error loading test results.';  // Only update if element exists
+          testResultsLoading.textContent = 'Error loading test results.';  // Display error if fetch fails
         }
         console.error('Error fetching test results:', error);
       });
