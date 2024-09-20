@@ -3,13 +3,7 @@ import fs from 'fs';
 
 // ------------------ Helper Functions ------------------
 
-// Normalize titles by removing non-alphanumeric characters, trimming spaces, and converting to lowercase.
-// This ensures titles can be compared in a case-insensitive and format-neutral way.
-const normalizeTitle = (title) =>
-  title.replace(/[^\w\s]/gi, '').trim().toLowerCase();
-
 // Extracts article details from the page.
-// It locates the elements containing article data such as rank, title, and timestamp and returns them.
 async function extractArticles(page) {
   const articles = await page.locator('.athing').evaluateAll(nodes => {
     return nodes.map(article => {
@@ -17,34 +11,36 @@ async function extractArticles(page) {
       const title = article.querySelector('.titleline a')?.innerText || 'No title';
       const timestamp = article.nextElementSibling?.querySelector('.age')?.getAttribute('title') || 'No timestamp';
       return { rank, title, timestamp };
-    }).filter(article => article.timestamp !== 'No timestamp'); // Filter out articles missing timestamp
+    }).filter(article => article.timestamp !== 'No timestamp');
   });
+
   return articles;
 }
 
 // Scrapes articles from Hacker News and ensures there are at least 100 unique articles.
-// This function loops until it either scrapes 100 unique articles or exhausts the available articles.
 async function scrapeAndVerifyArticles(page) {
   let allArticles = [];
 
-  // Keep scraping until we have 100 unique articles.
   while (allArticles.length < 100) {
     const newArticles = await extractArticles(page);
 
-    // If no new articles are found, reload the page and try again.
+    // If no articles are found, reload the page and retry after a short delay.
     if (newArticles.length === 0) {
       console.error('No articles found. Reloading the page...');
       await page.reload();
-      await page.waitForLoadState('networkidle'); // Ensure the page has fully loaded.
+      await page.waitForLoadState('networkidle'); // Use Playwright's network idle state to ensure the page is fully loaded.
       continue;
     }
 
-    // Merge new articles into the list and ensure uniqueness by title.
+    // Merge new articles with the existing list and ensure uniqueness.
     allArticles = [...allArticles, ...newArticles];
     const uniqueArticles = new Map(allArticles.map(article => [article.title, article]));
     allArticles = [...uniqueArticles.values()];
 
-    // If "More" button is available, click it to load more articles.
+    // Break the loop if we have enough articles.
+    if (allArticles.length >= 100) break;
+
+    // Click "More" if available to load more articles, or exit if no more articles are available.
     const moreButton = await page.locator('a.morelink');
     if (await moreButton.isVisible()) {
       await moreButton.click();
@@ -55,113 +51,130 @@ async function scrapeAndVerifyArticles(page) {
     }
   }
 
-  // Throw an error if we scrape fewer than 100 articles.
+  // Throw an error if fewer than 100 articles are scraped.
   if (allArticles.length < 100) {
     throw new Error(`Error: Only ${allArticles.length} articles were scraped.`);
   }
 
-  // Trim to exactly 100 articles and verify the count.
+  // Return exactly 100 articles and validate.
   allArticles = allArticles.slice(0, 100);
   expect(allArticles.length).toBe(100);
+  
   return allArticles;
 }
 
 // ------------------ TEST CASES ------------------
 
-// Basic Scraping Test: Ensures we can scrape and verify 100 unique articles from the "Newest" page.
+// Basic Scraping Test
 test('Basic Scraping Test: Scrape and verify 100 articles from Hacker News', async ({ page }, testInfo) => {
-  // Visit the "Newest" page on Hacker News.
+  // Visit the "Newest" page.
   await page.goto('https://news.ycombinator.com/newest');
-  
-  // Capture and calculate performance metrics.
+
+  // Capture performance metrics.
   const performanceTiming = await page.evaluate(() => JSON.stringify(window.performance.timing));
   const timing = JSON.parse(performanceTiming);
   const pageLoadTime = timing.loadEventEnd - timing.navigationStart;
   const timeToFirstByte = timing.responseStart - timing.navigationStart;
 
-  // Scrape and verify articles.
+  // Scrape and verify the articles.
   const articles = await scrapeAndVerifyArticles(page);
-  
-  // Store scraped articles and performance metrics for later use in test results.
+
+  // Store articles and performance info for later use in test results.
   testInfo.articles = articles;
   testInfo.performance = { pageLoadTime, timeToFirstByte };
 });
 
 // Test: Validate Clicking a Link
 test('Link Click Validation: Validate clicking the first article link', async ({ page }) => {
-  test.setTimeout(60000); // Set timeout of 60 seconds for the entire test
+  test.setTimeout(60000); // Set a timeout of 60 seconds for the whole test
 
-  // The following block uses `expect(async () => {...})` to repeat assertions and handle async issues.
   await expect(async () => {
-    // Visit the Hacker News home page and wait for it to load completely.
+    // Visit the Hacker News home page.
     await page.goto('https://news.ycombinator.com/');
-    await page.waitForLoadState('networkidle'); // Wait for the network to be idle, ensuring the page is fully loaded.
 
-    // Wait for the first article in the list to be visible before proceeding.
+    // Ensure the page has fully loaded before interacting with elements.
+    await page.waitForLoadState('networkidle');
+    console.log('Page fully loaded.');
+
+    // Wait for the presence of articles on the page.
     const articles = page.locator('.athing');
-    await articles.first().waitFor({ state: 'visible', timeout: 45000 });
-  }).toPass({ timeout: 60000 });
+    await articles.first().waitFor({ state: 'visible', timeout: 10000 });
+    console.log('Articles are present.');
+  }).toPass({ timeout: 1000 * 60 });
 
-  // After confirming the first article link is visible, click it and verify the page navigates correctly.
+  // Now wait for the first article link to appear and be visible.
   const firstArticleLink = page.locator('.athing .titleline a').first();
-  await firstArticleLink.waitFor({ state: 'attached', timeout: 30000 }); // Ensure the link is attached to the DOM
-  await firstArticleLink.waitFor({ state: 'visible', timeout: 15000 }); // Ensure it is visible
-  const expectedUrl = await firstArticleLink.getAttribute('href'); // Get the URL of the article
 
-  if (!expectedUrl) throw new Error('Expected URL is missing.');
+  // Get the expected URL of the first article.
+  const expectedUrl = await firstArticleLink.getAttribute('href');
+  if (!expectedUrl) {
+    throw new Error('Expected URL is missing.');
+  }
 
   // Click the link and verify that the page navigates to the expected URL.
   await firstArticleLink.click();
   await expect(page).toHaveURL(expectedUrl, { timeout: 15000 });
+
   console.log('Link Click Validation Passed');
 });
 
-// Test: Invalid Login Validation with Mocked CAPTCHA
+// Test: Invalid Login Validation
 test('Login Validation with Mocked CAPTCHA', async ({ page }) => {
-  test.setTimeout(90000);  // Increased timeout to accommodate potential delays under heavy load.
+  test.setTimeout(90000);  // Increase the timeout to account for potential delays under heavy load
 
-  // Mock the CAPTCHA request to always return a success response.
+  // Mock the CAPTCHA request with the correct endpoint.
   await page.route('**/recaptcha/**', route => {
     route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: '{"success": true}', // Simulate a successful CAPTCHA response.
+      body: '{"success": true}', // Simulate successful CAPTCHA response.
     });
   });
 
-  // This block uses repeated assertions to ensure elements are loaded and interactable.
   await expect(async () => {
-    // Navigate to the login page and wait for the network to be idle.
+    // Navigate to the login page.
     await page.goto('https://news.ycombinator.com/login');
-    await page.waitForLoadState('networkidle');
 
-    // Narrow down to the login form and locate the fields.
+    // Ensure the page has fully loaded before interacting with elements.
+    await page.waitForLoadState('networkidle');
+    console.log('Login page fully loaded.');
+
+    // Narrow down to the login form specifically by filtering for the form with the text "login".
     const loginForm = page.locator('form').filter({ hasText: 'login' });
+
+    // Use locators scoped to the login form to avoid strict mode violations.
     const usernameField = loginForm.locator('input[name="acct"]');
     const passwordField = loginForm.locator('input[name="pw"]');
     const submitButton = loginForm.locator('input[type="submit"]');
 
-    // Wait for the username and password fields to be attached and visible.
-    await usernameField.waitFor({ state: 'attached', timeout: 45000 });
-    await usernameField.waitFor({ state: 'visible', timeout: 30000 });
+    // Increase timeout and add more logging to track progress.
+    console.log('Waiting for username field to attach.');
+    await usernameField.waitFor({ state: 'attached', timeout: 10000 });  // Increased timeout to 10 seconds
+    console.log('Username field is attached.');
 
-    await passwordField.waitFor({ state: 'attached', timeout: 45000 });
-    await passwordField.waitFor({ state: 'visible', timeout: 30000 });
+    await usernameField.waitFor({ state: 'visible', timeout: 10000 });  // Increased timeout to 10 seconds
+    console.log('Username field is visible.');
 
-    // Fill in invalid credentials and submit the form.
+    await passwordField.waitFor({ state: 'attached', timeout: 10000 });  // Increased timeout for password field as well
+    console.log('Password field is attached.');
+
+    await passwordField.waitFor({ state: 'visible', timeout: 10000 });
+    console.log('Password field is visible.');
+
+    // Enter invalid credentials and submit the form.
     await usernameField.fill('invalidUser');
     await passwordField.fill('invalidPassword');
     await submitButton.click();
-  }).toPass({ timeout: 60000 });
+  }).toPass({ timeout: 1000 * 60 });
 
-  // Check the response text and validate whether the login failed or CAPTCHA validation is required.
+  // Validate the response message for invalid login or CAPTCHA requirements.
   const bodyText = await page.textContent('body', { timeout: 30000 });
-  const bodyLocator = page.locator('body');
-
   if (bodyText.includes('Bad login.')) {
-    await expect(bodyLocator).toContainText('Bad login.'); // Validate the error message is shown.
+    expect(bodyText).toContain('Bad login.');
+    console.log('Login Validation Passed: Invalid credentials.');
   } else if (bodyText.includes('Validation required')) {
-    await expect(bodyLocator).toContainText('Validation required'); // Validate the CAPTCHA message.
+    expect(bodyText).toContain('Validation required');
+    console.warn('CAPTCHA validation required.');
   } else {
     console.error('Unexpected response:', bodyText);
   }
@@ -169,21 +182,33 @@ test('Login Validation with Mocked CAPTCHA', async ({ page }) => {
 
 // Performance Monitoring
 test('Performance Monitoring: Capture key metrics for Hacker News', async ({ browserName, browser }, testInfo) => {
-  // Create a new browser context to isolate the test.
+  // Create a new browser context for this test.
   const context = await browser.newContext();
-  await context.tracing.start({ screenshots: true, snapshots: true }); // Start tracing for performance analysis.
 
+  // Start tracing to capture screenshots and snapshots for performance analysis.
+  await context.tracing.start({ screenshots: true, snapshots: true });
+
+  // Open a new page within the context.
   const page = await context.newPage();
+
+  // Navigate to the "Newest" page on Hacker News.
   await page.goto('https://news.ycombinator.com/newest');
-  await page.waitForLoadState('networkidle'); // Wait for the network to be idle.
+
+  // Wait for the page to fully load by ensuring the network is idle.
+  await page.waitForLoadState('networkidle');
 
   // Capture performance timing data from the page.
   const performanceTiming = await page.evaluate(() => JSON.stringify(window.performance.timing));
+
+  // Parse the JSON string returned by the browser into a JavaScript object.
   const timing = JSON.parse(performanceTiming);
 
-  const ttfb = timing.responseStart - timing.navigationStart; // Time to First Byte (TTFB)
-  const pageLoadTime = timing.loadEventEnd - timing.navigationStart; // Page Load Time
+  // Calculate key performance metrics.
+  const ttfb = timing.responseStart - timing.navigationStart;  // Time to First Byte (TTFB)
 
+  const pageLoadTime = timing.loadEventEnd - timing.navigationStart;  // Page Load Time
+
+  // Log the performance metrics for visibility.
   console.log(`Time to First Byte (TTFB): ${ttfb} ms`);
   console.log(`Page Load Time: ${pageLoadTime} ms`);
 
@@ -191,38 +216,58 @@ test('Performance Monitoring: Capture key metrics for Hacker News', async ({ bro
   const traceFileName = `trace-${browserName}.zip`;
   await context.tracing.stop({ path: traceFileName });
 
-  testInfo.performance = { ttfb, pageLoadTime, traceFileName }; // Store performance metrics in test results.
-  await context.close(); // Close the browser context to clean up.
+  // Store the performance metrics and trace file path in the test results.
+  testInfo.performance = { ttfb, pageLoadTime, traceFileName };
+
+  // Close the browser context after the test completes.
+  await context.close();
 });
 
-// Hacker News API: Fetch and validate top stories
+// Hacker News API Test
 test('Hacker News API: Fetch and validate top stories', async () => {
-  // Create a new API request context for handling API interactions.
+  // Create a new API request context.
   const apiContext = await request.newContext();
-  
-  // Fetch the list of top stories from Hacker News API.
+
+  // Send a GET request to the Hacker News API to fetch the list of top stories.
   const topStoriesResponse = await apiContext.get('https://hacker-news.firebaseio.com/v0/topstories.json');
-  expect(topStoriesResponse.ok()).toBeTruthy(); // Ensure the API response is successful.
 
-  const topStories = await topStoriesResponse.json(); // Parse the response JSON.
-  expect(topStories.length).toBeGreaterThan(0); // Validate that the API returned some stories.
+  // Verify that the API response status is successful.
+  expect(topStoriesResponse.ok()).toBeTruthy();
 
-  await apiContext.dispose(); // Clean up the API request context after test completion.
+  // Parse the response body as JSON to retrieve the list of top story IDs.
+  const topStories = await topStoriesResponse.json();
+
+  // Ensure that the list of top stories is not empty.
+  expect(topStories.length).toBeGreaterThan(0);
+
+  // Clean up the API request context after the test completes.
+  await apiContext.dispose();
 });
 
-// Hacker News API: Validate top stories from API against UI
+// Helper function to normalize titles (lowercase, trim, and remove special characters)
+const normalizeTitle = (title) =>
+  title
+    .replace(/[^\w\s]/gi, '')  // Remove non-alphanumeric characters
+    .trim()
+    .toLowerCase();             // Convert to lowercase for case-insensitive comparison
+
+// Validate top stories from API against UI
 test('Hacker News API: Validate top stories from API against UI', async ({ page }) => {
-  // Step 1: Create an API request context to fetch data from Hacker News API.
+  // Step 1: Create an API request context
   const apiContext = await request.newContext();
 
-  // Fetch the top stories from the API.
+  // Fetch data from the Hacker News API
   const topStoriesResponse = await apiContext.get('https://hacker-news.firebaseio.com/v0/topstories.json');
-  expect(topStoriesResponse.ok()).toBeTruthy(); // Ensure the API response is successful.
-  const topStories = await topStoriesResponse.json(); // Parse the JSON response.
-  expect(topStories.length).toBeGreaterThan(0); // Ensure we have some top stories returned.
+  expect(topStoriesResponse.ok()).toBeTruthy();  // Ensure API response is successful
 
-  // Fetch detailed information about the top 10 stories from the API.
-  const top10StoryIds = topStories.slice(0, 10); // Get the first 10 story IDs.
+  // Parse the JSON response and get the top 10 stories (IDs)
+  const topStories = await topStoriesResponse.json();
+  expect(topStories.length).toBeGreaterThan(0);  // Ensure there are stories returned from the API
+
+  // Slice the first 10 story IDs for testing
+  const top10StoryIds = topStories.slice(0, 10);
+
+  // Step 2: Fetch detailed information for each top story from the API
   const top10StoriesData = await Promise.all(
     top10StoryIds.map(async (storyId) => {
       const storyResponse = await apiContext.get(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`);
@@ -230,40 +275,46 @@ test('Hacker News API: Validate top stories from API against UI', async ({ page 
     })
   );
 
-  const apiTitles = top10StoriesData.map((story) => normalizeTitle(story.title)); // Normalize titles for comparison.
+  // Extract titles from the API response and normalize them
+  const apiTitles = top10StoriesData.map((story) => normalizeTitle(story.title));
 
-  // Step 2: Navigate to the Hacker News homepage.
+  // Step 3: Navigate to Hacker News webpage to validate the data
   await page.goto('https://news.ycombinator.com/');
-  await page.waitForLoadState('networkidle'); // Wait for the network to be idle.
+  await page.waitForLoadState('networkidle');  // Ensure the page has loaded completely
 
-  // Step 3: Extract visible titles from the page and normalize them for comparison.
+  // Step 4: Extract all visible titles on the page and normalize them
   const pageTitles = await page.locator('.athing .titleline a').evaluateAll((elements) =>
     elements.map(el => el.innerText.trim().toLowerCase())
   );
 
-  // Step 4: Iterate through the API titles and compare them with the page titles.
+  // Step 5: Iterate through the API titles and compare them with the page titles
   for (const apiTitle of apiTitles) {
     const isTitleFound = pageTitles.some(pageTitle => normalizeTitle(pageTitle).includes(apiTitle));
-    expect(isTitleFound).toBe(true); // Assert that the title is found on the page.
+
+    // Assert that the title was found on the page
+    expect(isTitleFound).toBe(true);
+
     console.log(`Matched API title: "${apiTitle}" with a Page title.`);
   }
 
-  await apiContext.dispose(); // Clean up the API request context.
+  // Clean up the API context after the test completes
+  await apiContext.dispose();
+  console.log('API data successfully validated against UI.');
 });
 
 // ------------------ AFTER EACH HOOK ------------------
 
-// After each test, update the testResults.json file with test information.
-test.afterEach(async ({}, testInfo) => {
+// After each test, update the testResults.json file
+test.afterEach(async ({ }, testInfo) => {
   let testResults = [];
 
-  // Check if the testResults.json file exists and read its contents.
+  // Check if the testResults.json file exists
   if (fs.existsSync('testResults.json')) {
     const data = fs.readFileSync('testResults.json', 'utf8');
     testResults = JSON.parse(data);
   }
 
-  // Create a new result object for the current test.
+  // Add or update test result in the testResults array
   const newResult = {
     browser: testInfo.project.name,
     test: testInfo.title,
@@ -273,7 +324,6 @@ test.afterEach(async ({}, testInfo) => {
     error: testInfo.error || null,
   };
 
-  // Check if the test result for this test already exists and update it, otherwise add a new result.
   const existingResultIndex = testResults.findIndex(result =>
     result.browser === testInfo.project.name && result.test === testInfo.title
   );
@@ -284,6 +334,6 @@ test.afterEach(async ({}, testInfo) => {
     testResults.push(newResult);
   }
 
-  // Write the updated test results back to the file.
+  // Write updated test results back to the file
   fs.writeFileSync('testResults.json', JSON.stringify(testResults, null, 2), 'utf-8');
 });
